@@ -92,7 +92,7 @@ public class BDPeliculas implements IBD {
 	Conexion oCon = new Conexion();
 	ResultSet rs = null;
 	oCon.getConexion();
-	String consulta = "SELECT * FROM peliculas where idPelicula =" + ((Pelicula) dato).getIdPelicula();
+	String consulta = "SELECT * FROM peliculas where idPelicula =" + ((int) dato);
 	try {
 	    PreparedStatement sentencia = (PreparedStatement) oCon.getConexion().prepareStatement(consulta);
 	    rs = sentencia.executeQuery();

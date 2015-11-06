@@ -22,6 +22,8 @@ public class Pelicula {
     private String descripcion;
     private boolean estado;
     private String urlImagen;
+    private ArrayList listaPeliculas;
+    
 
     public int getIdPelicula() {
         return idPelicula;
@@ -109,6 +111,10 @@ public class Pelicula {
         this.urlImagen = "";
     }
 
+    public Pelicula() {
+
+    }    
+
     private BDPeliculas datosPeliculas = BDPeliculas.getInstance();
 
     public void altaPelicula(Pelicula peli) throws SQLException {
@@ -131,10 +137,21 @@ public class Pelicula {
         return datosPeliculas.listadoAdmin();
     }    
 
-    public Pelicula existe(int idPelicula) throws SQLException {
-        Pelicula peli = new Pelicula(idPelicula);
-        return (Pelicula) datosPeliculas.existe(peli);
+    public void existe(int idPelicula) throws SQLException {
+        Pelicula peli = (Pelicula) datosPeliculas.existe(idPelicula);
+        this.idPelicula = peli.idPelicula;
+        this.nombre = peli.nombre;
+        this.director = peli.director;
+        this.duracion = peli.duracion;
+        this.descripcion = peli.descripcion;
+        this.estado = peli.estado;
+        this.urlImagen = peli.urlImagen;
     }
     
+    public String listar() throws Exception
+    {
+        listaPeliculas = datosPeliculas.listado();
+        return "listarPeliculas";
+    }
     
 }
