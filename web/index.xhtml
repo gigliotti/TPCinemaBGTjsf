@@ -10,9 +10,10 @@
     <h:body>
         <ui:include src="menu.xhtml" ></ui:include>
         Hello from Facelets
-        <br />
-        <h:link  outcome="principal" value="ir a principal" />
-        
+        <br/>
+	<h:form>
+	    <h:commandLink  value="ir a principal" action="#{pelicula.listar()}"/>
+        </h:form>
     </h:body>
 </html>
 

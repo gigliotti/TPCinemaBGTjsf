@@ -23,135 +23,146 @@ public class Pelicula {
     private boolean estado;
     private String urlImagen;
     private ArrayList listaPeliculas;
-    
+
+    public ArrayList getListaPeliculas() {
+	return listaPeliculas;
+    }
+
+    public void setListaPeliculas(ArrayList listaPeliculas) {
+	this.listaPeliculas = listaPeliculas;
+    }
 
     public int getIdPelicula() {
-        return idPelicula;
+	return idPelicula;
     }
 
     public void setIdPelicula(int idPelicula) {
-        this.idPelicula = idPelicula;
+	this.idPelicula = idPelicula;
     }
 
     public String getNombre() {
-        return nombre;
+	return nombre;
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+	this.nombre = nombre;
     }
 
     public String getDirector() {
-        return director;
+	return director;
     }
 
     public void setDirector(String director) {
-        this.director = director;
+	this.director = director;
     }
 
     public int getDuracion() {
-        return duracion;
+	return duracion;
     }
 
     public void setDuracion(int duracion) {
-        this.duracion = duracion;
+	this.duracion = duracion;
     }
 
     public boolean isEstado() {
-        return estado;
+	return estado;
     }
 
     public void setEstado(boolean estado) {
-        this.estado = estado;
+	this.estado = estado;
     }
 
     public String getDescripcion() {
-        return descripcion;
+	return descripcion;
     }
 
     public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+	this.descripcion = descripcion;
     }
 
     public String getUrlImagen() {
-        return urlImagen;
+	return urlImagen;
     }
 
     public void setUrlImagen(String urlImagen) {
-        this.urlImagen = urlImagen;
+	this.urlImagen = urlImagen;
     }
 
     public Pelicula(int idPelicula, String nombre, String director, int duracion, String descripcion, boolean estado, String urlImagen) {
-        this.idPelicula = idPelicula;
-        this.nombre = nombre;
-        this.director = director;
-        this.duracion = duracion;
-        this.descripcion = descripcion;
-        this.estado = estado;
-        this.urlImagen = urlImagen;
+	this.idPelicula = idPelicula;
+	this.nombre = nombre;
+	this.director = director;
+	this.duracion = duracion;
+	this.descripcion = descripcion;
+	this.estado = estado;
+	this.urlImagen = urlImagen;
     }
 
     public Pelicula(String nombre, String director, int duracion, String descripcion, boolean estado, String urlImagen) {
-        this.idPelicula = 0;
-        this.nombre = nombre;
-        this.director = director;
-        this.duracion = duracion;
-        this.descripcion = descripcion;
-        this.estado = estado;
-        this.urlImagen = urlImagen;
+	this.idPelicula = 0;
+	this.nombre = nombre;
+	this.director = director;
+	this.duracion = duracion;
+	this.descripcion = descripcion;
+	this.estado = estado;
+	this.urlImagen = urlImagen;
     }
-    
+
     public Pelicula(int idPelicula) {
-        this.idPelicula = idPelicula;
-        this.nombre = "";
-        this.director = "";
-        this.duracion = 0;
-        this.descripcion = "";
-        this.estado = false;
-        this.urlImagen = "";
+	this.idPelicula = idPelicula;
+	this.nombre = "";
+	this.director = "";
+	this.duracion = 0;
+	this.descripcion = "";
+	this.estado = false;
+	this.urlImagen = "";
     }
 
     public Pelicula() {
 
-    }    
+    }
 
     private BDPeliculas datosPeliculas = BDPeliculas.getInstance();
 
     public void altaPelicula(Pelicula peli) throws SQLException {
-        datosPeliculas.alta(peli);
+	datosPeliculas.alta(peli);
     }
 
     public void bajaPelicula(int peli) throws SQLException {
-        datosPeliculas.baja(peli);
+	datosPeliculas.baja(peli);
     }
-    
-    public void modificapelicula(Pelicula peli) throws SQLException{
+
+    public void modificapelicula(Pelicula peli) throws SQLException {
 	datosPeliculas.modificar(peli);
     }
 
     public ArrayList listarPeliculas() throws SQLException {
-        return datosPeliculas.listado();
+	return datosPeliculas.listado();
     }
 
     public ArrayList listarPeliculasAdmin() throws SQLException {
-        return datosPeliculas.listadoAdmin();
-    }    
+	return datosPeliculas.listadoAdmin();
+    }
 
-    public void existe(int idPelicula) throws SQLException {
-        Pelicula peli = (Pelicula) datosPeliculas.existe(idPelicula);
-        this.idPelicula = peli.idPelicula;
-        this.nombre = peli.nombre;
-        this.director = peli.director;
-        this.duracion = peli.duracion;
-        this.descripcion = peli.descripcion;
-        this.estado = peli.estado;
-        this.urlImagen = peli.urlImagen;
+    public String existe(int idPelicula) throws SQLException {
+	Pelicula peli = null;
+	peli = (Pelicula) datosPeliculas.existe(idPelicula);
+	if (peli != null) {
+	    this.idPelicula = peli.idPelicula;
+	    this.nombre = peli.nombre;
+	    this.director = peli.director;
+	    this.duracion = peli.duracion;
+	    this.descripcion = peli.descripcion;
+	    this.estado = peli.estado;
+	    this.urlImagen = peli.urlImagen;
+	}
+	return "existe";
     }
-    
-    public String listar() throws Exception
-    {
-        listaPeliculas = datosPeliculas.listado();
-        return "listarPeliculas";
+
+    public String listar() throws Exception {
+	listaPeliculas = new ArrayList();
+	this.listaPeliculas = datosPeliculas.listado();
+	return "listarPeliculas";
     }
-    
+
 }
