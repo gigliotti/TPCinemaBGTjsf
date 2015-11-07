@@ -1,57 +1,35 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
 
     <h:body>
-	<h:form>
-	    <br>
-		<h:outputText value="Listado de Peliculas" style="font-style: italic"/>
-	    </br>
-	    <h:dataTable value="#{pelicula.listaPeliculas}" var="fila" border="1">
-		<h:column>
-		    <f:facet name="header">
-			<h:outputText value="Id Pelicula" />
-		    </f:facet>
-		    <h:outputText id="idPeli" value="#{fila.idPelicula}" />
-		</h:column>
-		<h:column>
-		    <f:facet name="header">
-			<h:outputText value="Nombre" />
-		    </f:facet>
-		    <h:outputText id="nom" value="#{fila.nombre}" />
-		</h:column>
-		<h:column>
-		    <f:facet name="header">
-			<h:outputText value="Director" />
-		    </f:facet>
-		    <h:outputText id="dom" value="#{fila.director}" />
-		</h:column>
-		<h:column>
-		    <f:facet name="header">
-			<h:outputText value="Duracion" />
-		    </f:facet>
-		    <h:outputText id="tel" value="#{fila.duracion}" />
-		</h:column>
-		<h:column>
-		    <f:facet name="header">
-			<h:outputText value="Descripcion" />
-		    </f:facet>
-		    <h:outputText id="cel" value="#{fila.descripcion}" />
-		</h:column>
-		<h:column>
-		    <f:facet name="header">
-			<h:outputText value="Estado" />
-		    </f:facet>
-		    <h:outputText id="email" value="#{fila.estado}" />
-		</h:column> 
-	    </h:dataTable>
-	</h:form>
+        <h:form>
+            <br>
+                <h:outputText value="Listado de Peliculas" style="font-style: italic"/>
+            </br>
+            <b:row style="text-align: center">
+                <b:column span="6" offset="3">
+                    <c:forEach var="peli" items="#{pelicula.listaPeliculas}">
+                        <b:thumbnail>
+                            <img data-src="" width="242" height="240" class="img-rounded"/>
+                            <f:facet name="caption">
+                                <h3>#{peli.nombre}</h3>
+                                <p>usto odio, dap</p>
+                                <p>
+                                    <b:button look="primary" value="Detalles"/>
+                                </p>
+                            </f:facet>
+                        </b:thumbnail>
+                    </c:forEach>
+                </b:column>
+            </b:row>
+        </h:form>
     </h:body>
 </html>
 
