@@ -14,6 +14,7 @@ import java.util.ArrayList;
  * @author Bruno, Jorge, Hernan
  */
 public class Reserva {
+
     private int idReserva;
     private Usuario user;
     private int butaca;
@@ -21,55 +22,55 @@ public class Reserva {
     private Funcion funcion;
 
     public int getIdReserva() {
-        return idReserva;
+	return idReserva;
     }
 
     public void setIdReserva(int idReserva) {
-        this.idReserva = idReserva;
+	this.idReserva = idReserva;
     }
 
     public Usuario getUser() {
-        return user;
+	return user;
     }
 
     public void setUser(Usuario user) {
-        this.user = user;
+	this.user = user;
     }
 
     public int getButaca() {
-        return butaca;
+	return butaca;
     }
 
     public void setButaca(int butaca) {
-        this.butaca = butaca;
+	this.butaca = butaca;
     }
 
     public boolean isConfirmacion() {
-        return confirmacion;
+	return confirmacion;
     }
 
     public void setConfirmacion(boolean confirmacion) {
-        this.confirmacion = confirmacion;
+	this.confirmacion = confirmacion;
     }
 
     public Funcion getFuncion() {
-        return funcion;
+	return funcion;
     }
 
     public void setFuncion(Funcion funcion) {
-        this.funcion = funcion;
+	this.funcion = funcion;
     }
 
     public Reserva(int idReserva, Usuario user, int butaca, boolean confirmacion, Funcion funcion) {
-        this.idReserva = idReserva;
-        this.user = user;
-        this.butaca = butaca;
-        this.confirmacion = confirmacion;
-        this.funcion = funcion;
+	this.idReserva = idReserva;
+	this.user = user;
+	this.butaca = butaca;
+	this.confirmacion = confirmacion;
+	this.funcion = funcion;
     }
 
     public Reserva(int idReserva) {
-        this.idReserva = idReserva;
+	this.idReserva = idReserva;
     }
 
     public Reserva(Usuario user, int butaca, boolean confirmacion, Funcion funcion) {
@@ -78,8 +79,7 @@ public class Reserva {
 	this.confirmacion = confirmacion;
 	this.funcion = funcion;
     }
-    
-    
+
     private BDReservas datosReservas = BDReservas.getInstance();
 
     public void altaReserva(ArrayList<Reserva> reservas) throws SQLException {
@@ -98,11 +98,9 @@ public class Reserva {
     public ArrayList listarXFuncion(int idFuncion) throws SQLException {
 	return datosReservas.listadoXFuncion(idFuncion);
     }
-    
+
     public ArrayList listarXUsuario(int idUsuario) throws SQLException {
-        return datosReservas.listadoXUsuario(idUsuario);
-    }    
-    
-    
-    
+	return datosReservas.listadoXUsuario(idUsuario);
+    }
+
 }

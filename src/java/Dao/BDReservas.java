@@ -5,7 +5,6 @@
  */
 package Dao;
 
-
 import Modelo.Funcion;
 import Modelo.Reserva;
 import Modelo.Usuario;
@@ -80,8 +79,8 @@ public class BDReservas implements IBD {
 	Reserva resp = null;
 	Conexion oCon = new Conexion();
 	ResultSet rs = null;
-        Usuario user = new Usuario();
-        Funcion funcion = new Funcion();
+	Usuario user = new Usuario();
+	Funcion funcion = new Funcion();
 	oCon.getConexion();
 	String consulta = "SELECT * FROM reservas where idReserva =" + ((Reserva) dato).getIdReserva();
 	try {
@@ -111,15 +110,15 @@ public class BDReservas implements IBD {
 	ArrayList listaReservas = new ArrayList();
 	Conexion oCon = new Conexion();
 	ResultSet rs = null;
-        Funcion funcion = new Funcion();
+	Funcion funcion = new Funcion();
 	oCon.getConexion();
 	String consulta = "SELECT idReserva, idUsuario, Count(*) as Butacas, Confirmacion, idFuncion FROM reservas where idUsuario =" + user + " group by idFuncion";
 	try {
 	    PreparedStatement sentencia = (PreparedStatement) oCon.getConexion().prepareStatement(consulta);
 	    rs = sentencia.executeQuery();
 	    while (rs.next()) {
-                funcion = funcion.existe(rs.getInt("idFuncion"));
-                Reserva res = new Reserva(rs.getInt("idReserva"), null, rs.getInt("Butacas"), rs.getBoolean("Confirmacion"), funcion);
+		funcion = funcion.existe(rs.getInt("idFuncion"));
+		Reserva res = new Reserva(rs.getInt("idReserva"), null, rs.getInt("Butacas"), rs.getBoolean("Confirmacion"), funcion);
 		listaReservas.add(res);
 	    }
 	    rs.close();
@@ -130,8 +129,8 @@ public class BDReservas implements IBD {
 	    oCon.close();
 	    return listaReservas;
 	}
-        
-    }    
+
+    }
 
     public ArrayList listadoXFuncion(int idFuncion) throws SQLException {
 	ArrayList listaReservas = new ArrayList();

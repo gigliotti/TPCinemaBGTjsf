@@ -171,7 +171,7 @@ public class BDSala implements IBD {
 	    return listaSalas;
 	}
     }
-    
+
     public ArrayList listadoAdmin() throws SQLException {
 	Cine cine = null;
 	Sala sala = null;

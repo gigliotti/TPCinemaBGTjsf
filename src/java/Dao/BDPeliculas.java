@@ -74,7 +74,7 @@ public class BDPeliculas implements IBD {
 	Conexion oCon = new Conexion();
 	oCon.getConexion();
 	Pelicula aux = (Pelicula) dato;
-	String update = "UPDATE peliculas SET  Nombre = '" + aux.getNombre() + "', Director = '" + aux.getDirector()+ "', DuracionPeli = " + aux.getDuracion()+ ",Descripcion = '" +aux.getDescripcion()+"', Estado = "+aux.isEstado()+ ", UrlImagen = '"+aux.getUrlImagen()+"' WHERE idPelicula = " + aux.getIdPelicula();
+	String update = "UPDATE peliculas SET  Nombre = '" + aux.getNombre() + "', Director = '" + aux.getDirector() + "', DuracionPeli = " + aux.getDuracion() + ",Descripcion = '" + aux.getDescripcion() + "', Estado = " + aux.isEstado() + ", UrlImagen = '" + aux.getUrlImagen() + "' WHERE idPelicula = " + aux.getIdPelicula();
 	try {
 	    PreparedStatement sentencia = (PreparedStatement) oCon.getConexion().prepareStatement(update);
 	    sentencia.execute();
