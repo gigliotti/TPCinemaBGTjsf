@@ -1,34 +1,37 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
       xmlns:b="http://bootsfaces.net/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+ 
     <h:head>
-	<title>Facelet Title</title>
+        <title>Facelet Title</title>
     </h:head>
 
     <h:body>
-	<h:form>
-	    <br>
-		<h:outputText value="Listado de Peliculas" style="font-style: italic"/>
-	    </br>
-	    <b:row style="text-align: center">
-		<b:column span="6" offset="3">
-		    <c:forEach var="peli" items="#{pelicula.listaPeliculas}">
-			<b:thumbnail>
-			    <img data-src="" width="242" height="240" class="img-rounded"/>
-			    <f:facet name="caption">
-				<h3>#{peli.nombre}</h3>
-				<p>#{peli.descripcion}</p>
-				<p>
-				    <b:button look="primary" value="Detalles"/>
-				</p>
-			    </f:facet>
-			</b:thumbnail>
-		    </c:forEach>
-		</b:column>
-	    </b:row>
-	</h:form>
+
+        <ui:include src="menu.xhtml" />
+        <h:form>
+            <br>
+                <h:outputText value="Listado de Peliculas" style="font-style: italic"/>
+            </br>
+            <b:row style="text-align: center">
+                <c:forEach var="peli" items="#{pelicula.listaPeliculas}">
+                    <b:column class="col-sm-6 col-md-4">
+                        <b:thumbnail>
+                            <img src="img/#{peli.urlImagen}" style="height: 300px;" />
+                            <f:facet name="caption">
+                                <h3>#{peli.nombre}</h3>
+                                <c:set var="string2" value="${fn:substring(peli.descripcion, 0, 200) }... " />
+                                <p>${string2}<b:button outcome="index.xhtml" look="primary" value=" Ver Más"/></p>                      
+                            </f:facet>
+                        </b:thumbnail>
+                    </b:column>
+                </c:forEach>
+            </b:row>
+        </h:form>
     </h:body>
 </html>
