@@ -69,7 +69,7 @@ public class BDUsuarios implements IBD {
 	Conexion oCon = new Conexion();
 	oCon.getConexion();
 	Usuario aux = (Usuario) dato;
-	String update = "UPDATE usuarios SET  nombre = '" + aux.getNombre() + "', apellido = '" + aux.getApellido() + "', DNI = " + aux.getDni() + ", Administrador = " + aux.isAdministrador() + ", User = '" + aux.getUser() + "', Pass = '" + aux.getPass() + "', email = '" + aux.getEmail() + "', Telefono = '" + aux.getTelefono() + "', UrlImg = '" +aux.getUrlImg()+ "'  WHERE idUsuario = " + aux.getId();
+	String update = "UPDATE usuarios SET  nombre = '" + aux.getNombre() + "', apellido = '" + aux.getApellido() + "', DNI = " + aux.getDni() + ", Administrador = " + aux.isAdministrador() + ", User = '" + aux.getUser() + "', Pass = '" + aux.getPass() + "', email = '" + aux.getEmail() + "', Telefono = '" + aux.getTelefono() + "', UrlImg = '" + aux.getUrlImg() + "'  WHERE idUsuario = " + aux.getId();
 	try {
 	    PreparedStatement sentencia = (PreparedStatement) oCon.getConexion().prepareStatement(update);
 	    sentencia.execute();

@@ -5,31 +5,30 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
-        <title>Facelet Title</title>
+	<title>Facelet Title</title>
     </h:head>
 
     <h:body>
-        <h:form>
-            <br>
-                <h:outputText value="Listado de Peliculas" style="font-style: italic"/>
-            </br>
-            <b:row style="text-align: center">
-                <b:column span="6" offset="3">
-                    <c:forEach var="peli" items="#{pelicula.listaPeliculas}">
-                        <b:thumbnail>
-                            <img data-src="" width="242" height="240" class="img-rounded"/>
-                            <f:facet name="caption">
-                                <h3>#{peli.nombre}</h3>
-                                <p>usto odio, dap</p>
-                                <p>
-                                    <b:button look="primary" value="Detalles"/>
-                                </p>
-                            </f:facet>
-                        </b:thumbnail>
-                    </c:forEach>
-                </b:column>
-            </b:row>
-        </h:form>
+	<h:form>
+	    <br>
+		<h:outputText value="Listado de Peliculas" style="font-style: italic"/>
+	    </br>
+	    <b:row style="text-align: center">
+		<b:column span="6" offset="3">
+		    <c:forEach var="peli" items="#{pelicula.listaPeliculas}">
+			<b:thumbnail>
+			    <img data-src="" width="242" height="240" class="img-rounded"/>
+			    <f:facet name="caption">
+				<h3>#{peli.nombre}</h3>
+				<p>#{peli.descripcion}</p>
+				<p>
+				    <b:button look="primary" value="Detalles"/>
+				</p>
+			    </f:facet>
+			</b:thumbnail>
+		    </c:forEach>
+		</b:column>
+	    </b:row>
+	</h:form>
     </h:body>
 </html>
-

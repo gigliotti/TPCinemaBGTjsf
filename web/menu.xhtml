@@ -4,29 +4,33 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
-    
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <style type="text/css">
+
+	.pass{
+	    margin-right:7px;
+	}
+
+    </style>
+
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-       <h:form>  
+	<h:form>  
             <p:growl id="messages"/>
 
-            <p:menubar>
+            <p:menubar >
+		<f:facet name="Nombre">		
+		    <p:outputLabel value="CinemaBGT" style="color: darkred; font-size: large"/>
+		</f:facet>
                 <p:submenu label="File" icon="ui-icon-document">
-                    <p:submenu label="New" icon="ui-icon-contact">
-                        <p:menuitem value="Project" url="#" />
-                        <p:menuitem value="Other" url="#" />
-                    </p:submenu>
-                    <p:menuitem value="Open" url="#" />
-                    <p:separator />
-                    <p:menuitem value="Quit" url="#" />
-                </p:submenu>
-
-                <p:submenu label="Edit" icon="ui-icon-pencil">
-                    <p:menuitem value="Undo" url="#" icon="ui-icon-arrowreturnthick-1-w" />
-                    <p:menuitem value="Redo" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+		    <p:menuitem value="Project" url="#" />
+		    <p:menuitem value="Other" url="#" />
+		    <p:menuitem value="Open" url="#" />
+		    <p:separator />
+		    <p:menuitem value="Quit" url="#" />
                 </p:submenu>
 
                 <p:submenu label="Help" icon="ui-icon-help">
@@ -39,21 +43,22 @@
                     </p:submenu>
                 </p:submenu>
 
-                <p:submenu label="Actions" icon="ui-icon-gear">
-                    <p:submenu label="Ajax" icon="ui-icon-refresh">
-                        <p:menuitem value="Save" actionListener="#{menuView.save}" icon="ui-icon-disk" update="messages"/>
-                        <p:menuitem value="Update" actionListener="#{menuView.update}" icon="ui-icon-arrowrefresh-1-w" update="messages"/>
-                    </p:submenu>
-                    <p:submenu label="Non-Ajax" icon="ui-icon-newwin">
-                        <p:menuitem value="Delete" actionListener="#{menuView.delete}" icon="ui-icon-close" update="messages" ajax="false"/>
-                    </p:submenu>
-                </p:submenu>
-
-                <p:menuitem value="Quit" url="http://www.primefaces.org" icon="ui-icon-close" />
+                <p:menuitem value="Quit" url="http://www.primefaces.org" icon="ui-icon-close" /> 
 
                 <f:facet name="options">
                     <p:inputText style="margin-right:10px" placeholder="Search"/>
-                    <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
+		    <c:if test="#{usuario.logueado == true}">
+			<p:outputLabel for="userlog" value="#{usuario.nombre}"/>
+			<h:commandButton type="submit" value="Logout" id="userlog" action="#{usuario.desLoguear}"/>
+		    </c:if>
+		    <c:if test="#{usuario.logueado == false}">
+			<p:outputLabel for="user" value="Usuario"/>
+			<p:inputText style="margin-right:7px" id="user" value="#{usuario.user}" placeholder="Username"/>
+			<p:outputLabel for="pass" value="Password"/>
+			<p:password  id="pass" value="#{usuario.pass}"/>
+			<h:commandButton type="submit" value="LogIn"  action="#{usuario.validaUsuario}"/>
+
+		    </c:if>
                 </f:facet>
             </p:menubar>
         </h:form>
