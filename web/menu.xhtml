@@ -25,28 +25,19 @@
 		<f:facet name="Nombre">		
 		    <p:outputLabel value="CinemaBGT" style="color: darkred; font-size: large"/>
 		</f:facet>
-                <p:submenu label="File" icon="ui-icon-document">
-		    <p:menuitem value="Project" url="#" />
-		    <p:menuitem value="Other" url="#" />
-		    <p:menuitem value="Open" url="#" />
-		    <p:separator />
-		    <p:menuitem value="Quit" url="#" />
-                </p:submenu>
-
-                <p:submenu label="Help" icon="ui-icon-help">
-                    <p:menuitem value="Contents" url="#" />
-                    <p:submenu label="Search" icon="ui-icon-search">
-                        <p:submenu label="Text">
-                            <p:menuitem value="Workspace" url="#" />
-                        </p:submenu>
-                        <p:menuitem value="File" url="#" />
+                <p:menuitem value="ir a principal" action="#{pelicula.listar()}" /> 
+                <c:if test="#{usuario.logueado == true and usuario.administrador == true}">
+                    <p:submenu label="Herramientas de administrador" >
+                        <p:menuitem value="Abm Peliculas" url="#" />
+                        <p:menuitem value="Abm Sala" url="#" />
+                        <p:menuitem value="Abm Cine" url="#" />
+                        <p:menuitem value="Abm Funcion" url="#" />
+                        <p:separator />
+                        <p:menuitem value="Quit" url="#" />
                     </p:submenu>
-                </p:submenu>
-
-                <p:menuitem value="Quit" url="http://www.primefaces.org" icon="ui-icon-close" /> 
-
+                </c:if>
+                
                 <f:facet name="options">
-                    <p:inputText style="margin-right:10px" placeholder="Search"/>
 		    <c:if test="#{usuario.logueado == true}">
 			<p:outputLabel for="userlog" value="#{usuario.nombre}"/>
 			<h:commandButton type="submit" value="Logout" id="userlog" action="#{usuario.desLoguear}"/>
