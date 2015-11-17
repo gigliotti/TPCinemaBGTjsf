@@ -38,7 +38,12 @@
 	    <from-outcome>existe</from-outcome>
 	    <to-view-id>principal.xhtml</to-view-id>
 	</navigation-case>
-        
+
+	<navigation-case>
+	    <from-outcome>altaCine</from-outcome>
+	    <to-view-id>altaCine.xhtml</to-view-id>
+	</navigation-case>
+                
     </navigation-rule>    
     
     <!-- definimos los beans manejados -->
@@ -51,6 +56,12 @@
     <managed-bean>
 	<managed-bean-name>pelicula</managed-bean-name>
 	<managed-bean-class>Modelo.Pelicula</managed-bean-class>
+	<managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+	<managed-bean-name>cine</managed-bean-name>
+	<managed-bean-class>Modelo.Cine</managed-bean-class>
 	<managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     
