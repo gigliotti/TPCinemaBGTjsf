@@ -6,8 +6,10 @@
 package Modelo;
 
 import Dao.BDPeliculas;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.servlet.http.Part;
 
 /**
  *
@@ -23,6 +25,8 @@ public class Pelicula {
     private boolean estado;
     private String urlImagen;
     private ArrayList listaPeliculas;
+    private ArrayList listaPeliculasAdmin;
+    private Part file;
 
     public ArrayList getListaPeliculas() {
 	return listaPeliculas;
@@ -162,7 +166,39 @@ public class Pelicula {
     public String listar() throws Exception {
 	listaPeliculas = new ArrayList();
 	this.listaPeliculas = datosPeliculas.listado();
+	return "principal";
+    }
+    
+    public String listarAdmin() throws Exception {
+	listaPeliculasAdmin = new ArrayList();
+	this.listaPeliculasAdmin = datosPeliculas.listadoAdmin();
 	return "listarPeliculas";
+    }
+
+    public ArrayList getListaPeliculasAdmin() {
+	return listaPeliculasAdmin;
+    }
+
+    public void setListaPeliculasAdmin(ArrayList listaPeliculasAdmin) {
+	this.listaPeliculasAdmin = listaPeliculasAdmin;
+    }
+    
+
+    public String upload() throws IOException, Exception {
+        this.urlImagen = getFilename(file);
+        file.write("D:\\Tpcinema\\TPCinemaBGTjsf\\TPCinemaBGTjsf\\web\\img" + getFilename(file));
+        datosPeliculas.alta(this);
+        return "success";
+    }
+
+    private static String getFilename(Part part) {
+        for (String cd : part.getHeader("content-disposition").split(";")) {
+            if (cd.trim().startsWith("filename")) {
+                String filename = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
+                return filename.substring(filename.lastIndexOf('/') + 1).substring(filename.lastIndexOf('\\') + 1); // MSIE fix.
+            }
+        }
+        return null;
     }
 
 }
