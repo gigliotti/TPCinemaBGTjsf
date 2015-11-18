@@ -7,9 +7,20 @@ package Modelo;
 
 import Dao.BDPeliculas;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -24,15 +35,15 @@ public class Pelicula {
     private String descripcion;
     private boolean estado;
     private String urlImagen;
-    private ArrayList listaPeliculas;
-    private ArrayList listaPeliculasAdmin;
-    private Part file;
+    private List<Pelicula> listaPeliculas;
+    private List<Pelicula> listaPeliculasAdmin;
+    private UploadedFile uploadedFile;
 
-    public ArrayList getListaPeliculas() {
+    public List<Pelicula> getListaPeliculas() {
 	return listaPeliculas;
     }
 
-    public void setListaPeliculas(ArrayList listaPeliculas) {
+    public void setListaPeliculas(List<Pelicula> listaPeliculas) {
 	this.listaPeliculas = listaPeliculas;
     }
 
@@ -175,30 +186,54 @@ public class Pelicula {
 	return "listarPeliculas";
     }
 
-    public ArrayList getListaPeliculasAdmin() {
+    public List<Pelicula> getListaPeliculasAdmin() {
 	return listaPeliculasAdmin;
     }
 
-    public void setListaPeliculasAdmin(ArrayList listaPeliculasAdmin) {
+    public void setListaPeliculasAdmin(List<Pelicula> listaPeliculasAdmin) {
 	this.listaPeliculasAdmin = listaPeliculasAdmin;
     }
     
-
-    public String upload() throws IOException, Exception {
-        this.urlImagen = getFilename(file);
-        file.write("D:\\Tpcinema\\TPCinemaBGTjsf\\TPCinemaBGTjsf\\web\\img" + getFilename(file));
-        datosPeliculas.alta(this);
-        return "success";
-    }
-
-    private static String getFilename(Part part) {
-        for (String cd : part.getHeader("content-disposition").split(";")) {
-            if (cd.trim().startsWith("filename")) {
-                String filename = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
-                return filename.substring(filename.lastIndexOf('/') + 1).substring(filename.lastIndexOf('\\') + 1); // MSIE fix.
+        public String altaPelicula() throws SQLException{
+        if (this.uploadedFile != null) {
+            if (!this.uploadedFile.getFileName().equals("")) {
+                uploadFile(this);
+                this.urlImagen = this.uploadedFile.getFileName();
+            } else {
+                this.urlImagen = "movie-default.png";
             }
         }
-        return null;
+        datosPeliculas.alta(this);
+        alta();
+        return "AltaPelicula";
+    }
+    
+
+    public void uploadFile(Pelicula peli) {
+        try {
+            HttpServletRequest request
+                    = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            String dir = request.getRealPath("/");
+            String dir2 = dir.replaceAll("web", "img");
+            String dir3 = dir2.replaceAll("build", "web");
+            String filename = peli.uploadedFile.getFileName();
+            Path folder = Paths.get(dir3, filename);
+            Path file = Files.createFile(folder);
+            InputStream input = peli.uploadedFile.getInputstream();
+            Files.copy(input, file, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException ex) {
+            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+        public void alta() {
+	this.idPelicula = 0;
+	this.nombre = "";
+	this.director = "";
+	this.duracion = 0;
+	this.descripcion = "";
+	this.estado = false;
+	this.urlImagen = "";
     }
 
 }

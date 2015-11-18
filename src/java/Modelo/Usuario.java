@@ -41,7 +41,7 @@ public class Usuario implements Serializable {
     private List<Usuario> listaUsuarios;
     private Usuario selectedUsuario;
     private Usuario editarUsuario;
-    private UploadedFile uploadedFile;
+    UploadedFile uploadedFile;
     private Usuario nuevoUsuario;
     
     private BDUsuarios datosUsuarios = BDUsuarios.getInstance();

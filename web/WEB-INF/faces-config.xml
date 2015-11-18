@@ -48,7 +48,12 @@
         <navigation-case>
             <from-outcome>AltaUsuario</from-outcome>
             <to-view-id>abmUsuario.xhtml</to-view-id>
-        </navigation-case>  
+        </navigation-case>
+	
+       <navigation-case>
+            <from-outcome>AltaPelicula</from-outcome>
+            <to-view-id>abmPelicula.xhtml</to-view-id>
+        </navigation-case>   
         
         <navigation-case>
             <from-outcome>EditaUsuario</from-outcome>
