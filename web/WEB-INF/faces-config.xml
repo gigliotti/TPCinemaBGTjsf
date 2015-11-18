@@ -1,57 +1,93 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <faces-config version="2.2"
-	      xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-	      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	      xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
 
 
     <!-- definimos reglas de navegacion -->
     <navigation-rule>
-	<!-- se consideran todas las peticiones -->
-	<from-view-id>*</from-view-id>
-	<navigation-case>
-	    <from-outcome>log</from-outcome>
-	    <to-view-id>principal.xhtml</to-view-id>
-	</navigation-case>
+        <!-- se consideran todas las peticiones -->
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>log</from-outcome>
+            <to-view-id>principal.xhtml</to-view-id>
+        </navigation-case>
         
-	<navigation-case>
-	    <from-outcome>nolog</from-outcome>
-	    <to-view-id>principal.xhtml</to-view-id>
-	</navigation-case>
+        <navigation-case>
+            <from-outcome>nolog</from-outcome>
+            <to-view-id>principal.xhtml</to-view-id>
+        </navigation-case>
         
-	<navigation-case>
-	    <from-outcome>index</from-outcome>
-	    <to-view-id>index.xhtml</to-view-id>
-	</navigation-case>
+        <navigation-case>
+            <from-outcome>index</from-outcome>
+            <to-view-id>index.xhtml</to-view-id>
+        </navigation-case>
                 
-	<navigation-case>
-	    <from-outcome>principal</from-outcome>
-	    <to-view-id>principal.xhtml</to-view-id>
-	</navigation-case>
+        <navigation-case>
+            <from-outcome>principal</from-outcome>
+            <to-view-id>principal.xhtml</to-view-id>
+        </navigation-case>
 
-	<navigation-case>
-	    <from-outcome>listarPeliculas</from-outcome>
-	    <to-view-id>principal.xhtml</to-view-id>
-	</navigation-case>
+        <navigation-case>
+            <from-outcome>listarPeliculas</from-outcome>
+            <to-view-id>principal.xhtml</to-view-id>
+        </navigation-case>
 	
-	<navigation-case>
-	    <from-outcome>existe</from-outcome>
-	    <to-view-id>principal.xhtml</to-view-id>
-	</navigation-case>
+        <navigation-case>
+            <from-outcome>existe</from-outcome>
+            <to-view-id>principal.xhtml</to-view-id>
+        </navigation-case>
         
-    </navigation-rule>    
+        <navigation-case>
+            <from-outcome>listarUsuarios</from-outcome>
+            <to-view-id>listadoUsuario.xhtml</to-view-id>
+        </navigation-case>  
+        
+        <navigation-case>
+            <from-outcome>AltaUsuario</from-outcome>
+            <to-view-id>abmUsuario.xhtml</to-view-id>
+        </navigation-case>  
+        
+        <navigation-case>
+            <from-outcome>EditaUsuario</from-outcome>
+            <to-view-id>abmUsuario.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>EliminaUsuario</from-outcome>
+            <to-view-id>abmUsuario.xhtml</to-view-id>
+        </navigation-case>
+        
+        
+    </navigation-rule>  
+    <application>
+        <action-listener>org.primefaces.application.DialogActionListener</action-listener>
+        <navigation-handler>org.primefaces.application.DialogNavigationHandler</navigation-handler>
+        <view-handler>org.primefaces.application.DialogViewHandler</view-handler>
+    </application>  
     
     <!-- definimos los beans manejados -->
     <managed-bean>
-	<managed-bean-name>usuario</managed-bean-name>
-	<managed-bean-class>Modelo.Usuario</managed-bean-class>
-	<managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
-    
+        <managed-bean-name>usuario</managed-bean-name>
+        <managed-bean-class>Modelo.Usuario</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>      
+         
     <managed-bean>
-	<managed-bean-name>pelicula</managed-bean-name>
-	<managed-bean-class>Modelo.Pelicula</managed-bean-class>
-	<managed-bean-scope>session</managed-bean-scope>
+        <managed-bean-name>pelicula</managed-bean-name>
+        <managed-bean-class>Modelo.Pelicula</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     
+    <filter>
+        <filter-name>primeFacesFileUploadFilter</filter-name>
+        <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>primeFacesFileUploadFilter</filter-name>
+        <servlet-name>facesServlet</servlet-name>
+    </filter-mapping>
+    
+       
 </faces-config>

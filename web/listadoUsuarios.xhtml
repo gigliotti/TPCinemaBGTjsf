@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title></title> 
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+            });
+        </script>
+    </h:head>    
+    <h:body onload="'#{usuario.listar()}'">       
+        <h:form id="form">
+            <p:dataGrid var="user" value="#{usuario.listaUsuarios}" columns="3" 
+                        rows="6" paginator="true" id="listaUsuarios"
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="6,12,16">
+                <f:facet name="header">Listado de Usarios</f:facet>
+                <p:panel header="#{user.user}" style="text-align:center">
+                    <h:panelGrid columns="1" style="width:100%"> 
+                        <c:choose>                           
+                            <c:when test="#{user.urlImg=='NULL'}">
+                                <img src="img/movie-default.png" style="height: 50px;" />
+                            </c:when>
+                            <c:otherwise><img src="img/imgUsuarios/#{user.urlImg}" style="height: 50px;"/> 
+                            </c:otherwise>
+                        </c:choose>
+                        <h:outputText value="#{user.nombre}" />
+                        <p:commandLink  update=":form:userDetail" oncomplete="PF('userDialog').show()" title="View Detail">
+                            <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />                             
+                            <f:setPropertyActionListener value="#{user}" target="#{usuario.selectedUsuario}" />                             
+                        </p:commandLink>
+                    </h:panelGrid>
+                </p:panel>
+            </p:dataGrid>
+            <p:dialog id="dlgInfo" header="User Info" widgetVar="userDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel id="userDetail" style="text-align:center;">
+                    <p:panelGrid id="panelInfo" rendered="#{not empty usuario.selectedUsuario}" columns="2" columnClasses="label,value">
+                        <f:facet name="header">                            
+                            <img src="img/imgUsuarios/#{usuario.selectedUsuario.urlImg}" style="height: 50px;" />
+                        </f:facet>
+                        <h:outputText value="Id:" />
+                        <h:outputText value="#{usuario.selectedUsuario.id}" />
+                        <h:outputText value="User:" />
+                        <h:outputText value="#{usuario.selectedUsuario.user}" />
+                        <h:outputText value="Apellido:" />
+                        <h:outputText value="#{usuario.selectedUsuario.apellido}"/>
+                        <h:outputText value="Nombre:" />
+                        <h:outputText value="#{usuario.selectedUsuario.nombre}" />
+                        <h:outputText value="Dni:" />
+                        <h:outputText value="#{usuario.selectedUsuario.dni}" />                        
+                        <h:outputText value="Teléfono:" />
+                        <h:outputText value="#{usuario.selectedUsuario.telefono}" />
+                        <h:outputText value="Administrador:" />
+                        <h:outputText value="#{usuario.selectedUsuario.administrador}" />                       
+                        <h:outputText value="Email:" />
+                        <h:outputText value="#{usuario.selectedUsuario.email}" />                         
+                        <p:commandLink action="#{usuario.editar()}" oncomplete="PF('userDialogEdit').show()" title="Editar">
+                            <h:outputText styleClass="ui-paginator-page ui-state-default ui-state-active" style="margin:0 auto;" value="Editar"/>                             
+                        </p:commandLink>
+                        <p:commandLink action="#{usuario.eliminar()}" oncomplete="PF('dlgEliminar').show()" title="Borrar">
+                            <h:outputText styleClass="ui-paginator-page ui-state-default ui-state-active" style="margin:0 auto;" value="Borrar"/>                            
+                        </p:commandLink>
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>           
+        </h:form>
+        <h:form id="formEliminar">
+            <p:dialog id="dlg2" header="Eliminar Usuario" showEffect="explode" hideEffect="explode" widgetVar="dlgEliminar" modal="true" resizable="false" minWidth="200">
+                <h:outputText value="¿Desea Eliminar el Usuario?"></h:outputText> 
+                <p:commandButton value="Si" action="#{usuario.bajaUsuario()}" update=":form" onclick="dlg2.hide();"></p:commandButton>
+                <p:commandButton value="No" onclick="dlg2.hide();"></p:commandButton>
+            </p:dialog>
+        </h:form>
+        <h:form id="formEditar" enctype="multipart/form-data">
+            <p:dialog id="dlgedit" header="Editar Usuario" widgetVar="userDialogEdit" modal="true" showEffect="fade" hideEffect="fade" resizable="false">                 
+                <p:outputPanel autoUpdate="true" id="editarDetail" style="text-align:center;">
+                    <p:panelGrid id="panelEdit" columns="2" rendered="#{not empty usuario.editarUsuario}" columnClasses="label,value" style="text-align:center;">
+                        <f:facet name="header">                            
+                            <h:outputText value="Edite los campos" style="font-style: italic"/>
+                        </f:facet>                             
+                        <b:panel >                                 
+                            <b:row style="text-align: center">
+                                <b:column class="col-md-6">
+                                    <b:inputText placeholder="Dni" value="#{usuario.editarUsuario.dni}" required="true">Dni:</b:inputText>                                        
+                                    <b:inputText placeholder="Nombre" value="#{usuario.editarUsuario.nombre}" required="true">Nombre:</b:inputText>
+                                    <b:inputText placeholder="Apellido" value="#{usuario.editarUsuario.apellido}" required="true">Apellido:</b:inputText>
+                                    <b:inputText placeholder="User" value="#{usuario.editarUsuario.user}" required="true">User:</b:inputText>
+                                    Es Administrador
+                                    <b:selectBooleanCheckbox value="#{usuario.editarUsuario.administrador}" ></b:selectBooleanCheckbox><br></br>
+                                </b:column>
+                                <b:column class="col-md-6">                                        
+                                    <b:inputSecret placeholder="Password" value="#{usuario.editarUsuario.pass}" required="true">Password:</b:inputSecret>
+                                    <b:inputText placeholder="Email" type="email" value="#{usuario.editarUsuario.email}" required="true">Email:</b:inputText>                                
+                                    <b:inputText placeholder="Telefono" value="#{usuario.editarUsuario.telefono}" required="true">Telefono:</b:inputText>                                     
+                                    <p:fileUpload update="imagenG" id="fileUploadFoto" value="#{usuario.editarUsuario.uploadedFile}" mode="simple" dragDropSupport="false"
+                                                  sizeLimit="100000" multiple="false" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                                    <br></br>
+                                    <img src="img/imgUsuarios/#{usuario.editarUsuario.urlImg}" style="height: 50px;" />                                 
+                                </b:column>
+                                <b:column class="col-md-12">
+                                    <h:commandButton  type="submit" action="#{usuario.modificaUsuario()}" value="Aceptar"></h:commandButton> 
+                                </b:column>  
+                            </b:row>
+                        </b:panel>                            
+                    </p:panelGrid> 
+                </p:outputPanel>         
+            </p:dialog>
+        </h:form>    
+
+    </h:body>
+</html>
+
