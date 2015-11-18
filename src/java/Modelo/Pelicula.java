@@ -9,6 +9,7 @@ import Dao.BDPeliculas;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.Part;
 
 /**
@@ -25,7 +26,7 @@ public class Pelicula {
     private boolean estado;
     private String urlImagen;
     private ArrayList listaPeliculas;
-    private ArrayList listaPeliculasAdmin;
+    private List<Pelicula> listaPeliculasAdmin;
     private Part file;
 
     public ArrayList getListaPeliculas() {
@@ -173,16 +174,15 @@ public class Pelicula {
 	listaPeliculasAdmin = new ArrayList();
 	this.listaPeliculasAdmin = datosPeliculas.listadoAdmin();
 	return "listarPeliculas";
+    }    
+
+    public List<Pelicula> getListaPeliculasAdmin() {
+        return listaPeliculasAdmin;
     }
 
-    public ArrayList getListaPeliculasAdmin() {
-	return listaPeliculasAdmin;
+    public void setListaPeliculasAdmin(List<Pelicula> listaPeliculasAdmin) {
+        this.listaPeliculasAdmin = listaPeliculasAdmin;
     }
-
-    public void setListaPeliculasAdmin(ArrayList listaPeliculasAdmin) {
-	this.listaPeliculasAdmin = listaPeliculasAdmin;
-    }
-    
 
     public String upload() throws IOException, Exception {
         this.urlImagen = getFilename(file);
