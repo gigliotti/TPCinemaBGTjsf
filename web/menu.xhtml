@@ -17,7 +17,7 @@
     <h:head>
         <title>Facelet Title</title>
     </h:head>
-    <h:body>
+    <h:body>       
 	<h:form>  
             <p:growl id="messages"/>
 
@@ -29,6 +29,8 @@
                 <c:if test="#{usuario.logueado == true and usuario.administrador == true}">
                     <p:submenu label="Herramientas de administrador" >
                         <p:menuitem value="Abm Peliculas" url="abmPelicula.xhtml" />
+                        <p:menuitem value="Abm Usuarios" url="abmUsuario.xhtml" />
+                        <p:menuitem value="Abm Peliculas" url="#" />
                         <p:menuitem value="Abm Sala" url="#" />
                         <p:menuitem value="Abm Cine" url="#" />
                         <p:menuitem value="Abm Funcion" url="#" />

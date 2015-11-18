@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
- 
+
     <h:head>
         <title>Facelet Title</title>
 	<script>
@@ -18,24 +18,29 @@
 
     <h:body>
         <ui:include src="menu.xhtml" />
-        <h:form>
-            <br>
-                <h:outputText value="Listado de Peliculas" style="font-style: italic"/>
-            </br>
-            <b:row style="text-align: center">
-                <c:forEach var="peli" items="#{pelicula.listaPeliculas}">
-                    <b:column class="col-sm-6 col-md-4">
-                        <b:thumbnail>
-                            <img src="img/#{peli.urlImagen}" style="height: 300px;" />
-                            <f:facet name="caption">
-                                <h3>#{peli.nombre}</h3>
-                                <c:set var="string2" value="${fn:substring(peli.descripcion, 0, 200) }... " />
-                                <p>${string2}<b:button outcome="index.xhtml" look="primary" value=" Ver Más"/></p>                      
-                            </f:facet>
-                        </b:thumbnail>
-                    </b:column>
-                </c:forEach>
-            </b:row>
-        </h:form>
+        <p:panelGrid  columns="1" style="text-align:center; width: 100%">
+            <f:facet name="header">                            
+                <h:outputText value="Listado de Peliculas" style="font-style: italic; font-size: 50px"/>
+            </f:facet> 
+            <b:panel >
+                <h:form>
+                    <b:row style="text-align: center">
+                        <c:forEach var="peli" items="#{pelicula.listaPeliculas}">
+                            <b:column class="col-sm-6 col-md-4">
+                                <b:thumbnail>
+                                    <img src="img/#{peli.urlImagen}" style="height: 300px;" />
+                                    <f:facet name="caption">
+                                        <h3>#{peli.nombre}</h3>
+                                        <c:set var="string2" value="${fn:substring(peli.descripcion, 0, 200) }... " />
+                                        <p>${string2}<b:button outcome="index.xhtml" look="primary" value=" Ver Más"/></p>                      
+                                    </f:facet>
+                                </b:thumbnail>
+                            </b:column>
+                        </c:forEach>
+                    </b:row>
+
+                </h:form>               
+            </b:panel> 
+        </p:panelGrid>       
     </h:body>
 </html>
