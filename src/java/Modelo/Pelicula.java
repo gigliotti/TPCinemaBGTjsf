@@ -39,6 +39,14 @@ public class Pelicula {
     private List<Pelicula> listaPeliculasAdmin;
     private UploadedFile uploadedFile;
 
+    public UploadedFile getUploadedFile() {
+	return uploadedFile;
+    }
+
+    public void setUploadedFile(UploadedFile uploadedFile) {
+	this.uploadedFile = uploadedFile;
+    }
+
     public List<Pelicula> getListaPeliculas() {
 	return listaPeliculas;
     }
@@ -179,7 +187,7 @@ public class Pelicula {
 	this.listaPeliculas = datosPeliculas.listado();
 	return "principal";
     }
-    
+
     public String listarAdmin() throws Exception {
 	listaPeliculasAdmin = new ArrayList();
 	this.listaPeliculasAdmin = datosPeliculas.listadoAdmin();
@@ -193,40 +201,40 @@ public class Pelicula {
     public void setListaPeliculasAdmin(List<Pelicula> listaPeliculasAdmin) {
 	this.listaPeliculasAdmin = listaPeliculasAdmin;
     }
-    
-        public String altaPelicula() throws SQLException{
-        if (this.uploadedFile != null) {
-            if (!this.uploadedFile.getFileName().equals("")) {
-                uploadFile(this);
-                this.urlImagen = this.uploadedFile.getFileName();
-            } else {
-                this.urlImagen = "movie-default.png";
-            }
-        }
-        datosPeliculas.alta(this);
-        alta();
-        return "AltaPelicula";
+
+    public String altaPelicula() throws SQLException {
+	if (this.uploadedFile != null) {
+	    if (!this.uploadedFile.getFileName().equals("")) {
+		uploadFile(this);
+		this.urlImagen = this.uploadedFile.getFileName();
+	    } else {
+		this.urlImagen = "movie-default.png";
+	    }
+	}
+	this.estado = true;
+	datosPeliculas.alta(this);
+	alta();
+	return "AltaPelicula";
     }
-    
 
     public void uploadFile(Pelicula peli) {
-        try {
-            HttpServletRequest request
-                    = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-            String dir = request.getRealPath("/");
-            String dir2 = dir.replaceAll("web", "img");
-            String dir3 = dir2.replaceAll("build", "web");
-            String filename = peli.uploadedFile.getFileName();
-            Path folder = Paths.get(dir3, filename);
-            Path file = Files.createFile(folder);
-            InputStream input = peli.uploadedFile.getInputstream();
-            Files.copy(input, file, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException ex) {
-            Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
-        }
+	try {
+	    HttpServletRequest request
+		    = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+	    String dir = request.getRealPath("/");
+	    String dir2 = dir.replaceAll("web", "img");
+	    String dir3 = dir2.replaceAll("build", "web");
+	    String filename = peli.uploadedFile.getFileName();
+	    Path folder = Paths.get(dir3, filename);
+	    Path file = Files.createFile(folder);
+	    InputStream input = peli.uploadedFile.getInputstream();
+	    Files.copy(input, file, StandardCopyOption.REPLACE_EXISTING);
+	} catch (IOException ex) {
+	    Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+	}
     }
-    
-        public void alta() {
+
+    public void alta() {
 	this.idPelicula = 0;
 	this.nombre = "";
 	this.director = "";
