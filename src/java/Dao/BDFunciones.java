@@ -205,7 +205,7 @@ public class BDFunciones implements IBD {
 	ResultSet rs = null;
 	ArrayList listaFunciones = new ArrayList();
 	oCon.getConexion();
-	String consulta = "SELECT P.idPelicula,P.Nombre as NombrePeli,P.Director,P.DuracionPeli,P.Descripcion,P.Estado as EstadoPeli, P.UrlImagen,C.idCine,C.Nombre as NombreCine,C.Direccion,C.Estado as EstadoCine,S.idSala,S.NumSala,S.Columna,S.Fila,S.Estado as EstadoSala,funciones.idFuncion,funciones.FechaYHora,funciones.Duracion as DuracionFuncion,funciones.Precio,funciones.Estado as EstadoFuncion FROM funciones inner join salas S on S.idSala = funciones.idSala inner join cines C on C.idCine = S.idCine inner join peliculas P on P.idPelicula = funciones.idPelicula where funciones.FechaYHora >= now() and funciones.Estado = 1 and funciones.IdPelicula = " + idPelicula;
+	String consulta = "SELECT P.idPelicula,P.Nombre as NombrePeli,P.Director,P.DuracionPeli,P.Descripcion,P.Estado as EstadoPeli, P.UrlImagen,C.idCine,C.Nombre as NombreCine,C.Direccion,C.Estado as EstadoCine,S.idSala,S.NumSala,S.Columna,S.Fila,S.Estado as EstadoSala,funciones.idFuncion,funciones.FechaYHora,funciones.Duracion as DuracionFuncion,funciones.Precio,funciones.Estado as EstadoFuncion FROM funciones inner join salas S on S.idSala = funciones.idSala inner join cines C on C.idCine = S.idCine inner join peliculas P on P.idPelicula = funciones.idPelicula where funciones.Estado = 1 and funciones.IdPelicula = " + idPelicula;
 	try {
 	    PreparedStatement sentencia = (PreparedStatement) oCon.getConexion().prepareStatement(consulta);
 	    rs = sentencia.executeQuery();

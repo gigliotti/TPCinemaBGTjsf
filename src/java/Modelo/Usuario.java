@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import org.primefaces.model.UploadedFile;
@@ -262,6 +263,20 @@ public class Usuario implements Serializable {
         alta();
         return "AltaUsuario";
     }
+    
+    public String registrarUsuario() throws SQLException{
+        if (this.uploadedFile != null) {
+            if (!this.uploadedFile.getFileName().equals("")) {
+                uploadFile(this);
+                this.urlImg = this.uploadedFile.getFileName();
+            } else {
+                this.urlImg = "user-default.png";
+            }
+        }
+        datosUsuarios.alta(this);
+        alta();
+        return "RegistrarUsuario";
+    }
 
     public String modificaUsuario() throws Exception {
         Usuario userBd = datosUsuarios.traePorId(this.editarUsuario.id);
@@ -321,6 +336,11 @@ public class Usuario implements Serializable {
 
     public void eliminar() {
         this.editarUsuario = this.selectedUsuario;
+    }
+    
+    public void captcha() {
+        FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct", "Correct");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
   
 }

@@ -52,7 +52,7 @@ public class Sala implements Serializable{
     }
 
     public int getColumna() {
-        return columna;
+        return 4;
     }
 
     public void setColumna(int columna) {
@@ -60,7 +60,7 @@ public class Sala implements Serializable{
     }
 
     public int getFila() {
-        return fila;
+        return 3;
     }
 
     public void setFila(int fila) {
@@ -163,5 +163,35 @@ public class Sala implements Serializable{
 //        this.Estado = false;
 //        this.idCineSala = 0;
     }
+    
+    public ArrayList cantButacas() throws SQLException{
+        //Sala aux = new Sala(1);
+        //aux = (Sala) datosSalas.existe(aux);
+        ArrayList butacas = new ArrayList();
+        Butaca aux;
+        for(int i = 1; i <= 3 * 4; i++){
+            aux= new Butaca(i);
+            butacas.add(aux);
+        }        
+        return butacas;
+    }
+    
+    public class Butaca{
+        private int idButaca;
+        
+        public Butaca(int id){
+            this.idButaca = id;
+        }
+
+        public int getIdButaca() {
+            return idButaca;
+        }
+
+        public void setIdButaca(int idButaca) {
+            this.idButaca = idButaca;
+        }
+        
+    }
 
 }
+

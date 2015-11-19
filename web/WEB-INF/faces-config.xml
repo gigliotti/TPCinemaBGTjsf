@@ -24,21 +24,24 @@
             <to-view-id>index.xhtml</to-view-id>
         </navigation-case>
                 
-        <!-- <navigation-case>
-            <from-outcome>principal</from-outcome>
-            <to-view-id>principal.xhtml</to-view-id>
-        </navigation-case> -->
-	
+         <navigation-case>
+            <from-outcome>elegirFuncion</from-outcome>
+            <to-view-id>elegirFuncion.xhtml</to-view-id>
+        </navigation-case>	
 	
         <navigation-case>
             <from-outcome>existe</from-outcome>
             <to-view-id>principal.xhtml</to-view-id>
-        </navigation-case>     
-      
+        </navigation-case>    
         
         <navigation-case>
             <from-outcome>AltaUsuario</from-outcome>
             <to-view-id>abmUsuario.xhtml</to-view-id>
+        </navigation-case>
+        
+         <navigation-case>
+            <from-outcome>RegistrarUsuario</from-outcome>
+            <to-view-id>principal.xhtml</to-view-id>
         </navigation-case>
 	
        <navigation-case>
@@ -60,6 +63,7 @@
             <from-outcome>EliminaPelicula</from-outcome>
             <to-view-id>abmPelicula.xhtml</to-view-id>
         </navigation-case>
+        
 	<navigation-case>
             <from-outcome>EditaPelicula</from-outcome>
             <to-view-id>abmPelicula.xhtml</to-view-id>
@@ -128,11 +132,19 @@
     </managed-bean>
     
     <managed-bean>
+        <managed-bean-name>reserva</managed-bean-name>
+        <managed-bean-class>Modelo.Reserva</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+
+     <managed-bean>
         <managed-bean-name>funcion</managed-bean-name>
         <managed-bean-class>Modelo.Funcion</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
-    
+
+                
     <filter>
         <filter-name>primeFacesFileUploadFilter</filter-name>
         <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>

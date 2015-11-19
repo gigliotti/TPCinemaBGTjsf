@@ -8,9 +8,9 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <style type="text/css">
 
-	.pass{
-	    margin-right:7px;
-	}
+        .pass{
+            margin-right:7px;
+        }
 
     </style>
 
@@ -18,7 +18,7 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>       
-	<h:form>  
+        <h:form>  
             <p:growl id="messages"/>
 
             <p:menubar >
@@ -37,21 +37,22 @@
                         <p:menuitem value="Quit" url="#" />
                     </p:submenu>
                 </c:if>
-                
-                <f:facet name="options">
-		    <c:if test="#{usuario.logueado == true}">
-			<p:outputLabel for="userlog" value="#{usuario.nombre}"/>
-			<h:commandButton type="submit" value="Logout" id="userlog" action="#{usuario.desLoguear}"/>
-		    </c:if>
-		    <c:if test="#{usuario.logueado == false}">
-			<p:outputLabel for="user" value="Usuario"/>
-			<p:inputText style="margin-right:7px" id="user" value="#{usuario.user}" placeholder="Username"/>
-			<p:outputLabel for="pass" value="Password"/>
-			<p:password  id="pass" value="#{usuario.pass}"/>
-			<h:commandButton type="submit" value="LogIn"  action="#{usuario.validaUsuario}"/>
 
-		    </c:if>
-                </f:facet>
+                <f:facet name="options">
+                    <c:if test="#{usuario.logueado == true}">
+                        <p:outputLabel for="userlog" value="#{usuario.nombre}"/>
+                        <h:commandButton type="submit" value="Logout" id="userlog" action="#{usuario.desLoguear}"/>
+                    </c:if>
+                    <c:if test="#{usuario.logueado == false}">
+                        <p:outputLabel for="user" value="Usuario"/>
+                        <p:inputText style="margin-right:7px" id="user" value="#{usuario.user}" placeholder="Username"/>
+                        <p:outputLabel for="pass" value="Password"/>
+                        <p:password  id="pass" value="#{usuario.pass}"/>
+                        <h:commandButton type="submit" value="LogIn"  action="#{usuario.validaUsuario}"/>                       		
+                        <p:menuitem value="Registrarme" url="registrar.xhtml"/>
+                        <p:link title="Registrarme" value="Registrarme" style="color: darkred; font-size: large" href="faces/registrar.xhtml"></p:link>
+                    </c:if>
+                </f:facet>               
             </p:menubar>
         </h:form>
     </h:body>
