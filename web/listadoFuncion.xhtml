@@ -12,7 +12,7 @@
     <h:body>
         <h:form id="form">
             <p:dataGrid var="func" value="#{funcion.listarFunciones()}" columns="3" 
-                        rows="6" paginator="true" id="listaSalas"
+                        rows="6" paginator="true" id="listaFunciones"
                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                         rowsPerPageTemplate="6,12,16">
                 <f:facet name="header">Listado de Funciones</f:facet>
@@ -21,69 +21,64 @@
                         <img src="img/#{func.pelicula.urlImagen}" style="height: 50px;" />
                         <p:commandLink  update=":form:funcionDetail" oncomplete="PF('funcionDialog').show()" title="View Detail">
                             <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" /> 
-                            <f:setPropertyActionListener value="#{func}" target="#{funcion.salaNueva}"></f:setPropertyActionListener>
+                            <f:setPropertyActionListener value="#{func}" target="#{funcion.funcionNueva}"></f:setPropertyActionListener>
                         </p:commandLink>
                     </h:panelGrid>
                 </p:panel>
             </p:dataGrid>
-            <p:dialog id="dlgInfo" header="Sala Info" widgetVar="salaDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
-                <p:outputPanel id="salaDetail" style="text-align:center;">
-                    <p:panelGrid id="panelInfo" rendered="#{not empty sala.salaNueva}" columns="2" columnClasses="value,value">
+            <p:dialog id="dlgInfo" header="Funcion Info" widgetVar="funcionDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel id="funcionDetail" style="text-align:center;">
+                    <p:panelGrid id="panelInfo" rendered="#{not empty funcion.funcionNueva}" columns="2" columnClasses="value,value">
                         <f:facet name="header">                            
                             <img src="img/cine.jpg" style="height: 50px;" />
                         </f:facet>
                         <h:outputText value="Id:" />
-                        <h:outputText value="#{sala.salaNueva.idSala}" />
-                        <h:outputText value="Numero Sala:" />
-                        <h:outputText value="#{sala.salaNueva.numSala}" />
-                        <h:outputText value="Cine:" />
-                        <h:outputText value="#{sala.salaNueva.cine.nombre}" />
-                        <h:outputText value="Columna:" />
-                        <h:outputText value="#{sala.salaNueva.columna}" />
-                        <h:outputText value="Fila:" />
-                        <h:outputText value="#{sala.salaNueva.fila}" />
-                        <h:outputText value="Estado:" />
-                        <h:outputText value="#{sala.salaNueva.estado}" />
-                        <p:commandLink  oncomplete="PF('salaDialogEdit').show()" title="Editar">
+                        <h:outputText value="#{funcion.funcionNueva.idFuncion}" />
+                        <h:outputText value="Fecha y hora de funcion:" />
+                        <h:outputText value="#{funcion.funcionNueva.fechaYHora}" />
+                        <h:outputText value="Duracion:" />
+                        <h:outputText value="#{funcion.funcionNueva.duracion}" />
+                        <h:outputText value="Precio:" />
+                        <h:outputText value="#{funcion.funcionNueva.precio}" />
+                        <h:outputText value="Sala" />
+                        <h:outputText value="#{funcion.funcionNueva.sala.numSala}" />
+                        <h:outputText value="Pelicula:" />
+                        <h:outputText value="#{funcion.funcionNueva.pelicula.nombre}" />
+                        <p:commandLink  oncomplete="PF('funcionDialogEdit').show()" title="Editar">
                             <h:outputText styleClass="ui-paginator-page ui-state-default ui-state-active" style="margin:0 auto;" value="Editar"/>                             
-                        </p:commandLink>
-                        <p:commandLink  oncomplete="PF('dlgEliminar').show()" title="Borrar">
-                            <h:outputText styleClass="ui-paginator-page ui-state-default ui-state-active" style="margin:0 auto;" value="Borrar"/>                            
                         </p:commandLink>
                     </p:panelGrid>
                 </p:outputPanel>
             </p:dialog>           
         </h:form>
-        <h:form id="formEliminar">
-            <p:dialog id="dlg2" header="Eliminar Sala" showEffect="explode" hideEffect="explode" widgetVar="dlgEliminar" modal="true" resizable="false" minWidth="200">
-                <h:outputText value="¿Desea Eliminar la Sala?"></h:outputText> 
-                <p:commandButton value="Si" action="#{sala.bajaSala()}" update=":form" onclick="dlg2.hide();"></p:commandButton>
-                <p:commandButton value="No" onclick="dlg2.hide();"></p:commandButton>
-            </p:dialog>
-        </h:form>
         <h:form id="formEditar">
-            <p:dialog id="dlgedit" header="Editar Sala" widgetVar="salaDialogEdit" modal="true" showEffect="fade" hideEffect="fade" resizable="false">                 
+            <p:dialog id="dlgedit" header="Editar Funcion" widgetVar="funcionDialogEdit" modal="true" showEffect="fade" hideEffect="fade" resizable="false">                 
                 <p:outputPanel autoUpdate="true" id="editarDetail" style="text-align:center;">
-                    <p:panelGrid id="panelEdit" columns="2" rendered="#{not empty sala.salaNueva}" columnClasses="value,value" style="text-align:center;">
+                    <p:panelGrid id="panelEdit" columns="2" rendered="#{not empty funcion.funcionNueva}" columnClasses="value,value" style="text-align:center;">
                         <f:facet name="header">                            
                             <h:outputText value="Edite los campos" style="font-style: italic"/>
                         </f:facet>                             
                         <b:panel >                                 
                             <b:row style="text-align: center">
                                 <b:column class="col-md-6">
-                                    <h:selectOneMenu id="id_cine" value="#{sala.salaNueva.idCineSala}" >                      
-                                        <f:selectItem itemLabel="Select Cine" itemValue="#{sala.salaNueva.idCineSala}" />
-                                        <f:selectItems  var="c" itemLabel="#{c.nombre}" itemValue="#{c.idCine}" noSelectionValue="true" value="#{cine.listarCinesActivos()}"/>                         
-                                    </h:selectOneMenu>
+                                    <p:outputLabel for="cine" value="Cine: " />
+		    <p:selectOneMenu id="cine" value="#{cine.idCineSeleccionado}" style="width:150px">
+			<p:ajax listener="#{cine.onCineChange()}" update="salas" />
+			<f:selectItem itemLabel="Seleccione Cine" itemValue="" noSelectionOption="true" />
+			<f:selectItems value="#{cine.listarCinesActivos()}" />
+		    </p:selectOneMenu><br></br>
+		    <p:outputLabel for="salas" value="Sala: " />
+		    <p:selectOneMenu id="salas" value="#{sala.salaNueva.idSala}" style="width:150px">
+			<f:selectItem itemLabel="Seleccione Sala" itemValue="" noSelectionOption="true" />
+			<f:selectItems value="#{cine.salasPorCine}" />
+		    </p:selectOneMenu>
                                     <br></br>
-                                    <b:inputText placeholder="Numero Sala" value="#{sala.salaNueva.numSala}" required="true">Numero Sala:</b:inputText>  
-                                    <b:inputText placeholder="Columna" value="#{sala.salaNueva.columna}" required="true">Columna:</b:inputText>
-                                    <b:inputText placeholder="Fila" value="#{sala.salaNueva.fila}" required="true">Fila:</b:inputText> 
-                                     Estado
-                                     <b:selectBooleanCheckbox value="#{sala.salaNueva.estado}" ></b:selectBooleanCheckbox><br></br>
+                                    <b:inputText placeholder="Fecha" value="#{funcion.funcionNueva.fechaYHora}" required="true">Fecha:</b:inputText>  
+                                    <b:inputText placeholder="Duracion" value="#{funcion.funcionNueva.duracion}" required="true">Duracion:</b:inputText>
+                                   <!-- <b:inputText placeholder="Fila" value="#{sala.salaNueva.fila}" required="true">Fila:</b:inputText> -->
                                 </b:column>
                                 <b:column class="col-md-12">
-                                    <h:commandButton  type="submit" action="#{sala.modificaSala()}" value="Aceptar"></h:commandButton> 
+                                    <h:commandButton  type="submit" action="#{funcion.modificaFuncion()}" value="Aceptar"></h:commandButton> 
                                 </b:column>  
                             </b:row>
                         </b:panel>                            

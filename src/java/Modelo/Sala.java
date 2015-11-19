@@ -6,6 +6,7 @@
 package Modelo;
 
 import Dao.BDSala;
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.faces.context.FacesContext;
@@ -15,7 +16,7 @@ import javax.faces.context.FacesContext;
  *
  * @author Jorge
  */
-public class Sala {
+public class Sala implements Serializable{
 
     private int idSala;
     private int numSala;

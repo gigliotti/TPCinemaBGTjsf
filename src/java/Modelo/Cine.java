@@ -6,6 +6,7 @@
 package Modelo;
 
 import Dao.BDCine;
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.faces.context.FacesContext;
@@ -14,7 +15,7 @@ import javax.faces.context.FacesContext;
  *
  * @author hernan
  */
-public class Cine {
+public class Cine implements Serializable{
 
     private int idCine;
     private String nombre;
@@ -22,6 +23,16 @@ public class Cine {
     private boolean estado;
     private ArrayList listadoCines;    
     private Cine cineNuevo;
+    private ArrayList salasPorCine = new ArrayList();
+    private int idCineSeleccionado;
+
+    public ArrayList getSalasPorCine() {
+	return salasPorCine;
+    }
+
+    public void setSalasPorCine(ArrayList salasPorCine) {
+	this.salasPorCine = salasPorCine;
+    }
     
 
     public int getIdCine() {
@@ -134,5 +145,22 @@ public class Cine {
     public void refresh() {
        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("cine");
     }
+    
+    
+        public void onCineChange() throws SQLException {
+	    Sala sala = new Sala();
+	    salasPorCine =  sala.listarSalasXCine(this.idCine);
+    }
+
+    public int getIdCineSeleccionado() {
+	return idCineSeleccionado;
+    }
+
+    public void setIdCineSeleccionado(int idCineSeleccionado) {
+	this.idCineSeleccionado = idCineSeleccionado;
+    }
+
+
+    
     
 }

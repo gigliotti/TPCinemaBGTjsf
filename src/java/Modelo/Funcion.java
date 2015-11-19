@@ -6,6 +6,7 @@
 package Modelo;
 
 import Dao.BDFunciones;
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,9 +21,10 @@ public class Funcion {
     private Date fechaYHora;
     private int duracion;
     private float precio;
-    private Sala sala;
-    private Pelicula pelicula;
+    private Sala sala = new Sala();
+    private Pelicula pelicula = new Pelicula();
     private boolean estado;
+    private Funcion funcionNueva;
 
     public Date getFechaYHora() {
 	return fechaYHora;
@@ -131,6 +133,20 @@ public class Funcion {
     public ArrayList listarFuncionesBusquedaAvanzada(int idCine, int idSala, int idPelicula, int NumeroButacas) throws SQLException {
 	return datosFunciones.listadoBusquedaAvanzada(idCine, idSala, idPelicula, NumeroButacas);
     }
+
+    public Funcion getFuncionNueva() {
+	return funcionNueva;
+    }
+
+    public void setFuncionNueva(Funcion funcionNueva) {
+	this.funcionNueva = funcionNueva;
+    }
+    
+    public String modificaFuncion(){
+	return "";
+    }
+    
+    
     
 
 }
