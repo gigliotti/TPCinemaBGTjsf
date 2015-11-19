@@ -19,7 +19,8 @@ public class Cine {
     private int idCine;
     private String nombre;
     private String direccion;
-    private boolean estado;     
+    private boolean estado;
+    private ArrayList listadoCines;    
 
     public int getIdCine() {
 	return idCine;
@@ -53,6 +54,8 @@ public class Cine {
 	this.estado = estado;
     }
 
+    
+    
     public Cine(int idCine, String nombre, String direccion, boolean estado) {
 	this.idCine = idCine;
 	this.nombre = nombre;
@@ -72,8 +75,10 @@ public class Cine {
 
     private BDCine datosCines = BDCine.getInstance();
 
-    public void altaCine(Cine cine) throws SQLException {
-	datosCines.alta(cine);
+    public String altaCine() throws SQLException {
+        Cine aux = new Cine(0, this.nombre, this.direccion, true);
+	datosCines.alta(aux);
+        return "altaCine";
     }
 
     public void bajaCine(int cine) throws SQLException {
@@ -95,6 +100,15 @@ public class Cine {
     public Cine existe(int idCine) throws SQLException {
 	Cine aux = new Cine(idCine);
 	return (Cine) datosCines.existe(aux);
+    }
+
+    public ArrayList getListadoCines() {
+        return listadoCines;
+    }
+
+    public void setListadoCines(ArrayList listadoCines) {
+        this.listadoCines = listadoCines;
+        
     }
     
     @Override
