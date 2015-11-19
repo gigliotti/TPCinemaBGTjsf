@@ -69,6 +69,9 @@ public class Reserva {
 	this.funcion = funcion;
     }
 
+    public Reserva() {
+    }
+
     public Reserva(int idReserva) {
 	this.idReserva = idReserva;
     }
