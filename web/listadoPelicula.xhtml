@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+        <h:head>
+        <title></title> 
+    </h:head>    
+    <h:body>       
+        <h:form id="form">
+            <p:dataGrid var="peli" value="#{pelicula.listarPeliculasAdmin()}" columns="3" 
+                        rows="6" paginator="true" id="listaPeliculas"
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="6,12,16">
+                <f:facet name="header">Listado de Peliculas</f:facet>
+                <p:panel header="#{peli.nombre}" style="text-align:center">
+                    <h:panelGrid columns="1" style="width:100%"> 
+                        <c:choose>                           
+                            <c:when test="#{peli.urlImagen=='NULL'}">
+                                <img src="img/movie-default.png" style="height: 50px;" />
+                            </c:when>
+                            <c:otherwise><img src="img/#{peli.urlImagen}" style="height: 50px;"/> 
+                            </c:otherwise>
+                        </c:choose>
+                        <p:commandLink  update=":form:peliDetail" oncomplete="PF('peliDialog').show()" title="View Detail">
+                            <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />                             
+                            <f:setPropertyActionListener value="#{peli}" target="#{pelicula.peliM}" />                             
+                        </p:commandLink>
+                    </h:panelGrid>
+                </p:panel>
+            </p:dataGrid>
+            <p:dialog id="dlgInfo" header="User Info" widgetVar="peliDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel id="peliDetail" style="text-align:center;">
+                    <p:panelGrid id="panelInfo" rendered="#{not empty pelicula.peliM}" columns="2" columnClasses="value,value">
+                        <f:facet name="header">                            
+                            <img src="img/#{pelicula.peliM.urlImagen}" style="height: 50px;" />
+                        </f:facet>
+                        <h:outputText value="Nombre:" />
+                        <h:outputText value="#{pelicula.peliM.nombre}" />
+                        <h:outputText value="Director:" />
+                        <h:outputText value="#{pelicula.peliM.director}"/>
+                        <h:outputText value="Duracion:" />
+                        <h:outputText value="#{pelicula.peliM.duracion}" />
+	      <c:set var="string2" value="${fn:substring(pelicula.peliM.descripcion, 0, 200) }... " />
+                        <h:outputText value="Descripcion:" /> 
+                        <h:outputText value="${string2}" />
+                        <h:outputText value="Estado:" />
+                        <h:outputText value="#{pelicula.peliM.estado}" />                                         
+                        <p:commandLink  oncomplete="PF('peliDialogEdit').show()" title="Editar">
+                            <h:outputText styleClass="ui-paginator-page ui-state-default ui-state-active" style="margin:0 auto;" value="Editar"/>                             
+                        </p:commandLink>
+                        <p:commandLink  oncomplete="PF('dlgEliminar').show()" title="Borrar">
+                            <h:outputText styleClass="ui-paginator-page ui-state-default ui-state-active" style="margin:0 auto;" value="Borrar"/>                            
+                        </p:commandLink>
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>           
+        </h:form>
+        <h:form id="formEliminar">
+            <p:dialog id="dlg2" header="Eliminar Pelicula" showEffect="explode" hideEffect="explode" widgetVar="dlgEliminar" modal="true" resizable="false" minWidth="200">
+                <h:outputText value="¿Desea Eliminar el Pelicula?"></h:outputText> 
+                <p:commandButton value="Si" action="#{pelicula.bajaPelicula()}" update=":form" onclick="dlg2.hide();"></p:commandButton>
+                <p:commandButton value="No" onclick="dlg2.hide();"></p:commandButton>
+            </p:dialog>
+        </h:form>
+        <h:form id="formEditar" enctype="multipart/form-data">
+            <p:dialog id="dlgedit" header="Editar Pelicula" widgetVar="peliDialogEdit" modal="true" showEffect="fade" hideEffect="fade" resizable="false">                 
+                <p:outputPanel autoUpdate="true" id="editarDetail" style="text-align:center;">
+                    <p:panelGrid id="panelEdit" columns="2" rendered="#{not empty pelicula.peliM}" columnClasses="value,value" style="text-align:center;">
+                        <f:facet name="header">                            
+                            <h:outputText value="Edite los campos" style="font-style: italic"/>
+                        </f:facet>                             
+                        <b:panel >                                 
+                            <b:row style="text-align: center">
+                                <b:column class="col-md-6">
+                                    <b:inputText placeholder="Nombre" value="#{pelicula.peliM.nombre}" required="true">Nombre:</b:inputText>                                        
+                                    <b:inputText placeholder="Director" value="#{pelicula.peliM.director}" required="true">Director:</b:inputText>
+                                    <b:inputText placeholder="Duracion" value="#{pelicula.peliM.duracion}" required="true">Duracion:</b:inputText>
+                                    <b:inputText placeholder="Descripcion" value="#{pelicula.peliM.descripcion}" required="true">Descripcion:</b:inputText>
+                                    Estado
+                                    <b:selectBooleanCheckbox value="#{pelicula.peliM.estado}" ></b:selectBooleanCheckbox><br></br>
+		<p:fileUpload update="imagenG" id="fileUploadFoto" value="#{pelicula.peliM.uploadedFile}" mode="simple" dragDropSupport="false"
+                                                  sizeLimit="100000" multiple="false" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+                                </b:column>
+                                <b:column class="col-md-6">                                        
+                                    <img src="img/#{pelicula.peliM.urlImagen}" style="height: 50px;" />                                 
+                                </b:column>
+                                <b:column class="col-md-12">
+                                    <h:commandButton  type="submit" action="#{pelicula.modificaPelicula()}" value="Aceptar"></h:commandButton> 
+                                </b:column>  
+                            </b:row>
+                        </b:panel>                            
+                    </p:panelGrid> 
+                </p:outputPanel>         
+            </p:dialog>
+        </h:form>    
+
+    </h:body>
+</html>
+

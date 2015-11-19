@@ -73,7 +73,7 @@ public class BDSala implements IBD {
     public void modificar(Object dato) throws SQLException {
 	Conexion oCon = new Conexion();
 	oCon.getConexion();
-	String update = "UPDATE Salas SET NumSala= " + ((Sala) dato).getNumSala() + ",idCine= " + ((Sala) dato).getCine().getIdCine() + ",Columna=" + ((Sala) dato).getColumna() + ",Fila= " + ((Sala) dato).getFila() + " Where idSala=" + ((Sala) dato).getIdSala();
+	String update = "UPDATE Salas SET NumSala= " + ((Sala) dato).getNumSala() + ",idCine= " + ((Sala) dato).getCine().getIdCine() + ",Columna=" + ((Sala) dato).getColumna() + ",Fila= " + ((Sala) dato).getFila() + ",Estado=" + ((Sala) dato).isEstado() + " Where idSala=" + ((Sala) dato).getIdSala();
 	try {
 	    PreparedStatement sentencia = (PreparedStatement) oCon.getConexion().prepareStatement(update);
 	    sentencia.execute();

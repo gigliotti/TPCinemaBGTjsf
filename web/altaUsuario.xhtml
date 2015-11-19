@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>    
+
+        <!--<b:button outcome="index.xhtml" look="primary" value=" Ver Más"/>-->
+
+        <h:form id="formAlta" class="col-md-6 col-md-offset-3" enctype="multipart/form-data">
+            <p:commandLink oncomplete="PF('userDialogAlta').show()" title="Nuevo Usuario">
+                <h:outputText styleClass="ui-paginator-page ui-state-default ui-state-active" style="margin:0 auto;"  value="Agregar Usuario"/>                   
+            </p:commandLink>
+            <p:dialog id="dAlta" header="Alta Usuario" widgetVar="userDialogAlta" modal="true" showEffect="fade" hideEffect="fade" resizable="false">                  
+                <p:panelGrid id="panelAlta" columns="2" style="text-align:center;" rendered="#{not empty usuario.nuevoUsuario}" columnClasses="label,value" >
+                    <f:facet name="header">                            
+                        <h:outputText value="Rellene los campos" style="font-style: italic"/>
+                    </f:facet>                             
+                    <b:panel >                                 
+                        <b:row style="text-align: center">
+                            <b:column class="col-md-6">
+                                <b:inputText placeholder="Dni" value="#{usuario.nuevoUsuario.dni}" required="true">Dni:</b:inputText>                                        
+                                <b:inputText placeholder="Nombre" value="#{usuario.nuevoUsuario.nombre}" required="true">Nombre:</b:inputText>
+                                <b:inputText placeholder="Apellido" value="#{usuario.nuevoUsuario.apellido}" required="true">Apellido:</b:inputText>
+                                <b:inputText placeholder="User" value="#{usuario.nuevoUsuario.user}" required="true">User:</b:inputText>
+                                Es Administrador
+                                <b:selectBooleanCheckbox value="#{usuario.nuevoUsuario.administrador}" ></b:selectBooleanCheckbox><br></br>
+                            </b:column>
+                            <b:column class="col-md-6">                                        
+                                <b:inputSecret placeholder="Password" value="#{usuario.nuevoUsuario.pass}" required="true">Password:</b:inputSecret>
+                                <b:inputText placeholder="Email" type="email" value="#{usuario.nuevoUsuario.email}" required="true">Email:</b:inputText>                                
+                                <b:inputText placeholder="Telefono" value="#{usuario.nuevoUsuario.telefono}" required="true">Telefono:</b:inputText>                                     
+                                <p:fileUpload value="#{usuario.nuevoUsuario.uploadedFile}" mode="simple" dragDropSupport="false"
+                                              sizeLimit="100000" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />                                  
+                            </b:column>
+                            <b:column class="col-md-12">
+                                <h:commandButton class="btn-primary"  type="submit" action="#{usuario.nuevoUsuario.altaUsuario()}" value="Aceptar"></h:commandButton> 
+                            </b:column>  
+                        </b:row>
+                    </b:panel>                            
+                </p:panelGrid>                   
+            </p:dialog>
+        </h:form>       
+    </h:body>
+</html>
+

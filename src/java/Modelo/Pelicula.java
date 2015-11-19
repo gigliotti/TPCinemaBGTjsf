@@ -6,8 +6,21 @@
 package Modelo;
 
 import Dao.BDPeliculas;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
+import org.primefaces.model.UploadedFile;
 
 /**
  *
@@ -22,14 +35,23 @@ public class Pelicula {
     private String descripcion;
     private boolean estado;
     private String urlImagen;
-    private ArrayList listaPeliculas;
+    private UploadedFile uploadedFile;
+    private Pelicula peliM;
 
-    public ArrayList getListaPeliculas() {
-	return listaPeliculas;
+    public Pelicula getPeliM() {
+	return peliM;
     }
 
-    public void setListaPeliculas(ArrayList listaPeliculas) {
-	this.listaPeliculas = listaPeliculas;
+    public void setPeliM(Pelicula peliM) {
+	this.peliM = peliM;
+    }
+
+    public UploadedFile getUploadedFile() {
+	return uploadedFile;
+    }
+
+    public void setUploadedFile(UploadedFile uploadedFile) {
+	this.uploadedFile = uploadedFile;
     }
 
     public int getIdPelicula() {
@@ -159,10 +181,68 @@ public class Pelicula {
 	return "existe";
     }
 
-    public String listar() throws Exception {
-	listaPeliculas = new ArrayList();
-	this.listaPeliculas = datosPeliculas.listado();
-	return "listarPeliculas";
+    public String altaPelicula() throws SQLException {
+	if (this.uploadedFile != null) {
+	    if (!this.uploadedFile.getFileName().equals("")) {
+		uploadFile(this);
+		this.urlImagen = this.uploadedFile.getFileName();
+	    } else {
+		this.urlImagen = "movie-default.png";
+	    }
+	}
+	this.estado = true;
+	datosPeliculas.alta(this);
+	alta();
+	return "AltaPelicula";
     }
 
+    public void uploadFile(Pelicula peli) {
+	try {
+	    HttpServletRequest request
+		    = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+	    String dir = request.getRealPath("/");
+	    String dir2 = dir.replaceAll("web", "img");
+	    String dir3 = dir2.replaceAll("build", "web");
+	    String filename = peli.uploadedFile.getFileName();
+	    Path folder = Paths.get(dir3, filename);
+	    Path file = Files.createFile(folder);
+	    InputStream input = peli.uploadedFile.getInputstream();
+	    Files.copy(input, file, StandardCopyOption.REPLACE_EXISTING);
+	} catch (IOException ex) {
+	    Logger.getLogger(Usuario.class.getName()).log(Level.SEVERE, null, ex);
+	}
+    }
+
+    public void alta() {
+	this.idPelicula = 0;
+	this.nombre = "";
+	this.director = "";
+	this.duracion = 0;
+	this.descripcion = "";
+	this.estado = false;
+	this.urlImagen = "";
+    }
+    
+    public String bajaPelicula() throws SQLException{
+	datosPeliculas.baja(this.peliM.idPelicula);
+	this.peliM = null;
+	return "EliminaPelicula";
+    }
+    
+        public String modificaPelicula() throws Exception {
+	    if(!this.peliM.uploadedFile.getFileName().equals("")){
+		uploadFile(this.peliM);
+		this.peliM.urlImagen = this.peliM.uploadedFile.getFileName();
+	    } else {
+		if (this.peliM != null && this.peliM.urlImagen == null) {
+		    this.peliM.urlImagen = "movie-default.png";
+		}
+	    }
+	    if(this.peliM != null) {
+		datosPeliculas.modificar(this.peliM);
+	    }
+	    this.peliM = null;
+	    return "EditaPelicula";
+    }
+	
 }

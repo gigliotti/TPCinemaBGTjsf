@@ -8,6 +8,7 @@ package Modelo;
 import Dao.BDCine;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -19,7 +20,7 @@ public class Cine {
     private String nombre;
     private String direccion;
     private boolean estado;
-    private ArrayList listadoCines;
+    private ArrayList listadoCines;    
 
     public int getIdCine() {
 	return idCine;
@@ -107,5 +108,11 @@ public class Cine {
 
     public void setListadoCines(ArrayList listadoCines) {
         this.listadoCines = listadoCines;
+        
+    }
+    
+    @Override
+    public String toString(){
+        return this.nombre;
     }
 }

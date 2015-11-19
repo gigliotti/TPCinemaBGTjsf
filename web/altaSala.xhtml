@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"     
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>  
+        <h:form id="altaSala" class="col-md-6 col-md-offset-3">                
+            <p:commandLink oncomplete="PF('salaDialogAlta').show()" title="Nuevo Sala">
+                <h:outputText styleClass="ui-paginator-page ui-state-default ui-state-active" style="margin:0 auto;"  value="Agregar Sala"/>                   
+            </p:commandLink>
+            <p:dialog id="dAlta" header="Alta Sala" widgetVar="salaDialogAlta" modal="true" showEffect="fade" hideEffect="fade" resizable="false">                  
+                <p:panelGrid id="panelAlta" columns="2" style="text-align:center;" rendered="#{not empty sala}" columnClasses="label,value" >
+                    <f:facet name="header">                            
+                        <h:outputText value="Rellene los campos" style="font-style: italic"/>
+                    </f:facet>                             
+                    <b:panel > 
+                        <b:row style="text-align: center">
+                            <b:column class="col-md-6">
+                                <b:inputText placeholder="Sala" value="#{sala.numSala}" required="true">Sala:</b:inputText>
+                                <b:inputText placeholder="Columnas" value="#{sala.columna}" required="true">Columna:</b:inputText>
+                                <b:inputText placeholder="Filas" value="#{sala.fila}" required="true">Fila:</b:inputText>                   
+                                <h:outputLabel for="event" value="Cine: "/>
+                                <h:selectOneMenu id="id_cine" value="#{sala.idCineSala}">                      
+                                    <f:selectItem itemLabel="Select Cine" itemValue="" noSelectionOption="true" />
+                                    <f:selectItems var="c" itemLabel="#{c.nombre}" itemValue="#{c.idCine}" noSelectionValue="true" value="#{cine.listarCinesActivos()}"/>                         
+                                </h:selectOneMenu><br></br><br></br>                  
+                                <h:commandButton class="btn-primary" type="submit" action="#{sala.altaSala()}" value="Agregar Sala"></h:commandButton>
+                            </b:column>  
+                        </b:row>
+                    </b:panel>                            
+                </p:panelGrid>                   
+            </p:dialog>   
+        </h:form>  
+    </h:body>
+</html>
+
