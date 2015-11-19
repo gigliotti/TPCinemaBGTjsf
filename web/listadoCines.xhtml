@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+            <p:dataGrid var="cin" value="#{cine.listarCines()}" columns="3" 
+                        rows="6" paginator="true" id="listaCines"
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="6,12,16">
+                <f:facet name="header">Listado de Cines</f:facet>
+                <p:panel header="Cine: #{cin.nombre}" style="text-align:center" >
+                    <h:panelGrid columns="1" style="width:100%"> 
+                        <img src="img/cine.jpg" style="height: 50px;" />
+                        <p:commandLink  update=":form:cineDetail" oncomplete="PF('cineDialog').show()" title="View Detail">
+                            <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" /> 
+                            <f:setPropertyActionListener value="#{cin}" target="#{cine.cineNuevo}"></f:setPropertyActionListener>
+                        </p:commandLink>
+                    </h:panelGrid>
+                </p:panel>
+            </p:dataGrid>
+            <p:dialog id="dlgInfo" header="Cine Info" widgetVar="cineDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel id="cineDetail" style="text-align:center;">
+                    <p:panelGrid id="panelInfo" rendered="#{not empty cine.cineNuevo}" columns="2" columnClasses="value,value">
+                        <f:facet name="header">                            
+                            <img src="img/cine.jpg" style="height: 50px;" />
+                        </f:facet>
+                        <h:outputText value="Id:" />
+                        <h:outputText value="#{cine.cineNuevo.idCine}" />
+                        <h:outputText value="Cine:" />
+                        <h:outputText value="#{cine.cineNuevo.nombre}" />
+                        <h:outputText value="Direccion:" />
+                        <h:outputText value="#{cine.cineNuevo.direccion}" />
+                        <h:outputText value="Estado:" />
+                        <h:outputText value="#{cine.cineNuevo.estado}" />
+                        <p:commandLink  oncomplete="PF('cineDialogEdit').show()" title="Editar">
+                            <h:outputText styleClass="ui-paginator-page ui-state-default ui-state-active" style="margin:0 auto;" value="Editar"/>                             
+                        </p:commandLink>
+                        <p:commandLink  oncomplete="PF('dlgEliminar').show()" title="Borrar">
+                            <h:outputText styleClass="ui-paginator-page ui-state-default ui-state-active" style="margin:0 auto;" value="Borrar"/>                            
+                        </p:commandLink>
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>           
+        </h:form>
+        <h:form id="formEliminar">
+            <p:dialog id="dlg2" header="Eliminar Cine" showEffect="explode" hideEffect="explode" widgetVar="dlgEliminar" modal="true" resizable="false" minWidth="200">
+                <h:outputText value="¿Desea Eliminar el Cine?"></h:outputText> 
+                <p:commandButton value="Si" action="#{cine.bajaCine()}" update=":form" onclick="dlg2.hide();"></p:commandButton>
+                <p:commandButton value="No" onclick="dlg2.hide();"></p:commandButton>
+            </p:dialog>
+        </h:form>
+        <h:form id="formEditar">
+            <p:dialog id="dlgedit" header="Editar Cine" widgetVar="cineDialogEdit" modal="true" showEffect="fade" hideEffect="fade" resizable="false">                 
+                <p:outputPanel autoUpdate="true" id="editarDetail" style="text-align:center;">
+                    <p:panelGrid id="panelEdit" columns="2" rendered="#{not empty cine.cineNuevo}" columnClasses="value,value" style="text-align:center;">
+                        <f:facet name="header">                            
+                            <h:outputText value="Edite los campos" style="font-style: italic"/>
+                        </f:facet>                             
+                        <b:panel >                                 
+                            <b:row style="text-align: center">
+                                <b:column class="col-md-6">
+                                    <b:inputText placeholder="Cine: " value="#{cine.cineNuevo.nombre}" required="true">Cine:</b:inputText>  
+                                    <b:inputText placeholder="Direccion" value="#{cine.cineNuevo.direccion}" required="true">Direccion:</b:inputText>
+                                     Estado: 
+                                     <b:selectBooleanCheckbox value="#{cine.cineNuevo.estado}" ></b:selectBooleanCheckbox><br></br>
+                                </b:column>
+                                <b:column class="col-md-12">
+                                    <h:commandButton  type="submit" action="#{cine.modificaCine()}" value="Aceptar"></h:commandButton> 
+                                </b:column>  
+                            </b:row>
+                        </b:panel>                            
+                    </p:panelGrid> 
+                </p:outputPanel>         
+            </p:dialog>
+        </h:form>
+    </h:body>
+</html>
+

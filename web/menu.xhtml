@@ -22,16 +22,16 @@
             <p:growl id="messages"/>
 
             <p:menubar >
-                <f:facet name="Nombre">		
-                    <p:outputLabel value="CinemaBGT" style="color: darkred; font-size: large"/>
-                </f:facet>
-                <p:menuitem value="ir a principal" url="principal.xhtml"/> 
+		<f:facet name="Nombre">		
+		    <p:outputLabel value="CinemaBGT" style="color: darkred; font-size: large"/>
+		</f:facet>
+                <p:menuitem value="ir a principal" url="/faces/principal.xhtml"/> 
                 <c:if test="#{usuario.logueado == true and usuario.administrador == true}">
                     <p:submenu label="Herramientas de administrador" >
                         <p:menuitem value="Abm Peliculas" url="abmPelicula.xhtml" />
                         <p:menuitem value="Abm Usuarios" url="abmUsuario.xhtml" />
                         <p:menuitem value="Abm Sala" url="abmSala.xhtml" />
-                        <p:menuitem value="Abm Cine" url="#" />
+                        <p:menuitem value="Abm Cine" url="abmCine.xhtml" />
                         <p:menuitem value="Abm Funcion" url="#" />
                         <p:separator />
                         <p:menuitem value="Quit" url="#" />
