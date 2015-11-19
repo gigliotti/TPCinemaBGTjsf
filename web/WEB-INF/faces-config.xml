@@ -24,11 +24,10 @@
             <to-view-id>index.xhtml</to-view-id>
         </navigation-case>
                 
-        <!-- <navigation-case>
-            <from-outcome>principal</from-outcome>
-            <to-view-id>principal.xhtml</to-view-id>
-        </navigation-case> -->
-	
+         <navigation-case>
+            <from-outcome>elegirFuncion</from-outcome>
+            <to-view-id>elegirFuncion.xhtml</to-view-id>
+        </navigation-case>	
 	
         <navigation-case>
             <from-outcome>existe</from-outcome>
@@ -132,7 +131,14 @@
         <managed-bean-class>Modelo.Cine</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
-    
+
+     <managed-bean>
+        <managed-bean-name>funcion</managed-bean-name>
+        <managed-bean-class>Modelo.Funcion</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+
+                
     <filter>
         <filter-name>primeFacesFileUploadFilter</filter-name>
         <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
