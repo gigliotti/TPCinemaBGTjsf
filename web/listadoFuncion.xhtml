@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+            <p:dataGrid var="func" value="#{funcion.listarFunciones()}" columns="3" 
+                        rows="6" paginator="true" id="listaFunciones"
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="6,12,16">
+                <f:facet name="header">Listado de Funciones</f:facet>
+                <p:panel header="Cine: #{func.sala.cine.nombre}  Sala: #{func.sala.numSala}"   style="text-align:center">
+                    <h:panelGrid columns="1" style="width:100%"> 
+                        <img src="img/#{func.pelicula.urlImagen}" style="height: 50px;" />
+                        <p:commandLink  update=":form:funcionDetail" oncomplete="PF('funcionDialog').show()" title="View Detail">
+                            <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" /> 
+                            <f:setPropertyActionListener value="#{func}" target="#{funcion.funcionNueva}"></f:setPropertyActionListener>
+                        </p:commandLink>
+                    </h:panelGrid>
+                </p:panel>
+            </p:dataGrid>
+            <p:dialog id="dlgInfo" header="Funcion Info" widgetVar="funcionDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel id="funcionDetail" style="text-align:center;">
+                    <p:panelGrid id="panelInfo" rendered="#{not empty funcion.funcionNueva}" columns="2" columnClasses="value,value">
+                        <f:facet name="header">                            
+                            <img src="img/cine.jpg" style="height: 50px;" />
+                        </f:facet>
+                        <h:outputText value="Id:" />
+                        <h:outputText value="#{funcion.funcionNueva.idFuncion}" />
+                        <h:outputText value="Fecha y hora de funcion:" />
+                        <h:outputText value="#{funcion.funcionNueva.fechaYHora}" />
+                        <h:outputText value="Duracion:" />
+                        <h:outputText value="#{funcion.funcionNueva.duracion}" />
+                        <h:outputText value="Precio:" />
+                        <h:outputText value="#{funcion.funcionNueva.precio}" />
+                        <h:outputText value="Sala" />
+                        <h:outputText value="#{funcion.funcionNueva.sala.numSala}" />
+                        <h:outputText value="Pelicula:" />
+                        <h:outputText value="#{funcion.funcionNueva.pelicula.nombre}" />
+                        <p:commandLink  oncomplete="PF('funcionDialogEdit').show()" title="Editar">
+                            <h:outputText styleClass="ui-paginator-page ui-state-default ui-state-active" style="margin:0 auto;" value="Editar"/>                             
+                        </p:commandLink>
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>           
+        </h:form>
+        <h:form id="formEditar">
+            <p:dialog id="dlgedit" header="Editar Funcion" widgetVar="funcionDialogEdit" modal="true" showEffect="fade" hideEffect="fade" resizable="false">                 
+                <p:outputPanel autoUpdate="true" id="editarDetail" style="text-align:center;">
+                    <p:panelGrid id="panelEdit" columns="2" rendered="#{not empty funcion.funcionNueva}" columnClasses="value,value" style="text-align:center;">
+                        <f:facet name="header">                            
+                            <h:outputText value="Edite los campos" style="font-style: italic"/>
+                        </f:facet>                             
+                        <b:panel >                                 
+                            <b:row style="text-align: center">
+                                <b:column class="col-md-6">
+                                    <p:outputLabel for="cine" value="Cine: " />
+		    <p:selectOneMenu id="cine" value="#{cine.idCineSeleccionado}" style="width:150px">
+			<p:ajax listener="#{cine.onCineChange()}" update="salas" />
+			<f:selectItem itemLabel="Seleccione Cine" itemValue="" noSelectionOption="true" />
+			<f:selectItems value="#{cine.listarCinesActivos()}" />
+		    </p:selectOneMenu><br></br>
+		    <p:outputLabel for="salas" value="Sala: " />
+		    <p:selectOneMenu id="salas" value="#{sala.salaNueva.idSala}" style="width:150px">
+			<f:selectItem itemLabel="Seleccione Sala" itemValue="" noSelectionOption="true" />
+			<f:selectItems value="#{cine.salasPorCine}" />
+		    </p:selectOneMenu>
+                                    <br></br>
+                                    <b:inputText placeholder="Fecha" value="#{funcion.funcionNueva.fechaYHora}" required="true">Fecha:</b:inputText>  
+                                    <b:inputText placeholder="Duracion" value="#{funcion.funcionNueva.duracion}" required="true">Duracion:</b:inputText>
+                                   <!-- <b:inputText placeholder="Fila" value="#{sala.salaNueva.fila}" required="true">Fila:</b:inputText> -->
+                                </b:column>
+                                <b:column class="col-md-12">
+                                    <h:commandButton  type="submit" action="#{funcion.modificaFuncion()}" value="Aceptar"></h:commandButton> 
+                                </b:column>  
+                            </b:row>
+                        </b:panel>                            
+                    </p:panelGrid> 
+                </p:outputPanel>         
+            </p:dialog>
+        </h:form>
+    </h:body>
+</html>
+
+
+
