@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"     
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>  
+        <h:form id="altaCine" class="col-md-6 col-md-offset-3">                
+            <p:commandLink oncomplete="PF('cineDialogAlta').show()" title="Nuevo Cine">
+                <h:outputText styleClass="ui-paginator-page ui-state-default ui-state-active" style="margin:0 auto;"  value="Agregar Cine"/>                   
+            </p:commandLink>
+            <p:dialog id="dAlta" header="Alta Cine" widgetVar="cineDialogAlta" modal="true" showEffect="fade" hideEffect="fade" resizable="false">                  
+                <p:panelGrid id="panelAlta" columns="2" style="text-align:center;" rendered="#{not empty cine}" columnClasses="label,value" >
+                    <f:facet name="header">                            
+                        <h:outputText value="Rellene los campos" style="font-style: italic"/>
+                    </f:facet>                             
+                    <b:panel > 
+                        <b:row style="text-align: center">
+                            <b:column class="col-md-6">
+                                <b:inputText placeholder="Cine" value="#{cine.nombre}" required="true">Nombre:</b:inputText>
+                                <b:inputText placeholder="Direccion" value="#{cine.direccion}" required="true">Direccion:</b:inputText>
+                                <h:commandButton class="btn-primary" type="submit" action="#{cine.altaCine()}" value="Agregar Cine"></h:commandButton>
+                            </b:column>  
+                        </b:row>
+                    </b:panel>                            
+                </p:panelGrid>                   
+            </p:dialog>   
+        </h:form>  
+    </h:body>
+</html>
+

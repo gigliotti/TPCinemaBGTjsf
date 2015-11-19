@@ -8,7 +8,7 @@ package Modelo;
 import Dao.BDCine;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -19,7 +19,10 @@ public class Cine {
     private int idCine;
     private String nombre;
     private String direccion;
-    private boolean estado;     
+    private boolean estado;
+    private ArrayList listadoCines;    
+    private Cine cineNuevo;
+    
 
     public int getIdCine() {
 	return idCine;
@@ -53,6 +56,8 @@ public class Cine {
 	this.estado = estado;
     }
 
+    
+    
     public Cine(int idCine, String nombre, String direccion, boolean estado) {
 	this.idCine = idCine;
 	this.nombre = nombre;
@@ -70,35 +75,64 @@ public class Cine {
     public Cine() {
     }
 
-    private BDCine datosCines = BDCine.getInstance();
+    private BDCine datosCine = BDCine.getInstance();
 
-    public void altaCine(Cine cine) throws SQLException {
-	datosCines.alta(cine);
+    public String altaCine() throws SQLException {
+        this.estado = true;
+        datosCine.alta(this);
+        refresh();
+        return "AltaCine";
     }
 
-    public void bajaCine(int cine) throws SQLException {
-	datosCines.baja(cine);
+    public String bajaCine() throws SQLException {
+        datosCine.baja(this.cineNuevo);
+        return "EliminaCine";
     }
 
-    public void modificaCine(Cine cine) throws SQLException {
-	datosCines.modificar(cine);
+    public String modificaCine() throws SQLException {
+        datosCine.modificar(this.cineNuevo);
+        this.cineNuevo = null;
+        return "EditaCine";
     }
 
     public ArrayList listarCines() throws SQLException {
-	return datosCines.listado();
+	return datosCine.listado();
     }
 
     public ArrayList listarCinesActivos() throws SQLException {
-	return datosCines.listadoActivos();
+	return datosCine.listadoActivos();
     }
 
     public Cine existe(int idCine) throws SQLException {
 	Cine aux = new Cine(idCine);
-	return (Cine) datosCines.existe(aux);
+	return (Cine) datosCine.existe(aux);
+    }
+
+    public ArrayList getListadoCines() {
+        return listadoCines;
+    }
+
+    public void setListadoCines(ArrayList listadoCines) {
+        this.listadoCines = listadoCines;
+        
     }
     
     @Override
     public String toString(){
         return this.nombre;
     }
+
+    public Cine getCineNuevo() {
+        return cineNuevo;
+    }
+
+    public void setCineNuevo(Cine cineNuevo) {
+        this.cineNuevo = cineNuevo;
+    }
+    
+    
+    public void refresh() {
+       FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("cine");
+    }
+    
 }
