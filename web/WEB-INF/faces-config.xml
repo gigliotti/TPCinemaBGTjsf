@@ -24,15 +24,10 @@
             <to-view-id>index.xhtml</to-view-id>
         </navigation-case>
                 
-        <navigation-case>
+        <!-- <navigation-case>
             <from-outcome>principal</from-outcome>
             <to-view-id>principal.xhtml</to-view-id>
-        </navigation-case>
-
-        <navigation-case>
-            <from-outcome>listarPeliculas</from-outcome>
-            <to-view-id>listadoPelicula.xhtml</to-view-id>
-        </navigation-case>
+        </navigation-case> -->
 	
 	
         <navigation-case>
@@ -59,6 +54,15 @@
         <navigation-case>
             <from-outcome>EliminaUsuario</from-outcome>
             <to-view-id>abmUsuario.xhtml</to-view-id>
+        </navigation-case>
+	
+        <navigation-case>
+            <from-outcome>EliminaPelicula</from-outcome>
+            <to-view-id>abmPelicula.xhtml</to-view-id>
+        </navigation-case>
+	<navigation-case>
+            <from-outcome>EditaPelicula</from-outcome>
+            <to-view-id>abmPelicula.xhtml</to-view-id>
         </navigation-case>
         
          <navigation-case>
