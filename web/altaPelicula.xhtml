@@ -16,10 +16,10 @@
 		<b:label text="Nueva Pelicula"></b:label>
 		<b:panel >
 		    <b:inputText placeholder="Ingrese Nombre" value="#{pelicula.nombre}" required="true">Nombre</b:inputText>
-		    <b:inputText placeholder="Ingrese Director" value="#{pelicula.director}" required="true">Direccion</b:inputText>
+		    <b:inputText placeholder="Ingrese Director" value="#{pelicula.director}" required="true">Director</b:inputText>
 		    <b:inputText placeholder="Ingrese Duracion" value="#{pelicula.duracion}" required="true">Duracion</b:inputText>
 		    <b:inputText placeholder="Ingrese Descripcion" value="#{pelicula.descripcion}" required="true">Descripcion</b:inputText>
-		    <h:inputFile value="pelicula"></h:inputFile>
+		    <p:fileUpload value="#{pelicula.uploadedFile}" mode="simple" dragDropSupport="false" sizeLimit="100000" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
 		    <h:commandButton class="btn-primary" type="submit" action="#{pelicula.altaPelicula()}" value="Agregar Pelicula"></h:commandButton> 
 		</b:panel>
 	    </h:form>

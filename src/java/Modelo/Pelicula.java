@@ -35,9 +35,16 @@ public class Pelicula {
     private String descripcion;
     private boolean estado;
     private String urlImagen;
-    private List<Pelicula> listaPeliculas;
-    private List<Pelicula> listaPeliculasAdmin;
     private UploadedFile uploadedFile;
+    private Pelicula peliM;
+
+    public Pelicula getPeliM() {
+	return peliM;
+    }
+
+    public void setPeliM(Pelicula peliM) {
+	this.peliM = peliM;
+    }
 
     public UploadedFile getUploadedFile() {
 	return uploadedFile;
@@ -45,14 +52,6 @@ public class Pelicula {
 
     public void setUploadedFile(UploadedFile uploadedFile) {
 	this.uploadedFile = uploadedFile;
-    }
-
-    public List<Pelicula> getListaPeliculas() {
-	return listaPeliculas;
-    }
-
-    public void setListaPeliculas(List<Pelicula> listaPeliculas) {
-	this.listaPeliculas = listaPeliculas;
     }
 
     public int getIdPelicula() {
@@ -182,26 +181,6 @@ public class Pelicula {
 	return "existe";
     }
 
-    public String listar() throws Exception {
-	listaPeliculas = new ArrayList();
-	this.listaPeliculas = datosPeliculas.listado();
-	return "principal";
-    }
-
-    public String listarAdmin() throws Exception {
-	listaPeliculasAdmin = new ArrayList();
-	this.listaPeliculasAdmin = datosPeliculas.listadoAdmin();
-	return "listarPeliculas";
-    }
-
-    public List<Pelicula> getListaPeliculasAdmin() {
-	return listaPeliculasAdmin;
-    }
-
-    public void setListaPeliculasAdmin(List<Pelicula> listaPeliculasAdmin) {
-	this.listaPeliculasAdmin = listaPeliculasAdmin;
-    }
-
     public String altaPelicula() throws SQLException {
 	if (this.uploadedFile != null) {
 	    if (!this.uploadedFile.getFileName().equals("")) {
@@ -243,5 +222,27 @@ public class Pelicula {
 	this.estado = false;
 	this.urlImagen = "";
     }
-
+    
+    public String bajaPelicula() throws SQLException{
+	datosPeliculas.baja(this.peliM.idPelicula);
+	this.peliM = null;
+	return "EliminaPelicula";
+    }
+    
+        public String modificaPelicula() throws Exception {
+	    if(!this.peliM.uploadedFile.getFileName().equals("")){
+		uploadFile(this.peliM);
+		this.peliM.urlImagen = this.peliM.uploadedFile.getFileName();
+	    } else {
+		if (this.peliM != null && this.peliM.urlImagen == null) {
+		    this.peliM.urlImagen = "movie-default.png";
+		}
+	    }
+	    if(this.peliM != null) {
+		datosPeliculas.modificar(this.peliM);
+	    }
+	    this.peliM = null;
+	    return "EditaPelicula";
+    }
+	
 }

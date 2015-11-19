@@ -9,11 +9,6 @@
 
     <h:head>
         <title>Facelet Title</title>
-	<script>
-	    $(document).ready(function){
-		var cargar = '#{pelicula.listar()}';
-	    }
-	</script>
     </h:head>
 
     <h:body>
@@ -25,7 +20,7 @@
             <b:panel >
                 <h:form>
                     <b:row style="text-align: center">
-                        <c:forEach var="peli" items="#{pelicula.listaPeliculas}">
+                        <c:forEach var="peli" items="#{pelicula.listarPeliculas()}">
                             <b:column class="col-sm-6 col-md-4">
                                 <b:thumbnail>
                                     <img src="img/#{peli.urlImagen}" style="height: 300px;" />
