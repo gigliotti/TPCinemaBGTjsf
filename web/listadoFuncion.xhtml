@@ -22,6 +22,8 @@
                         <p:commandLink  update=":form:funcionDetail" oncomplete="PF('funcionDialog').show()" title="View Detail">
                             <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" /> 
                             <f:setPropertyActionListener value="#{func}" target="#{funcion.funcionNueva}"></f:setPropertyActionListener>
+			    <f:setPropertyActionListener value="#{func.sala}" target="#{sala}"></f:setPropertyActionListener>
+			    <f:setPropertyActionListener value="#{func.sala.cine}" target="#{cine}"></f:setPropertyActionListener>
                         </p:commandLink>
                     </h:panelGrid>
                 </p:panel>
@@ -68,7 +70,7 @@
 			<f:selectItems value="#{cine.listarCinesActivos()}" />
 		    </p:selectOneMenu><br></br>
 		    <p:outputLabel for="salas" value="Sala: " />
-		    <p:selectOneMenu id="salas" value="#{sala.salaNueva.idSala}" style="width:150px">
+		    <p:selectOneMenu id="salas" value="#{sala.idSala}" style="width:150px">
 			<f:selectItem itemLabel="Seleccione Sala" itemValue="" noSelectionOption="true" />
 			<f:selectItems value="#{cine.salasPorCine}" />
 		    </p:selectOneMenu>
