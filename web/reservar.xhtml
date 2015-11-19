@@ -9,21 +9,20 @@
       xmlns:b="http://bootsfaces.net/ui">
     <h:head>
         <title>Facelet Title</title>
-               
+
         <script>
             var butacasOcupadas = [];
-	var butacasReservadas = [];
+            var butacasReservadas = [];
 
-            function prueba(varr) {
-                alert(varr);
-                if ($('#' + varr).attr('src') == "img/butacaRes.png") {
-                    $('#' + varr).attr("src", "img/butacaDes.png");
-                    //butacasReservadas.pop(this.id);
+            function prueba(id) {               
+                if ($('#' + id).attr('src') == "img/butacaRes.png") {
+                    $('#' + id).attr("src", "img/butacaDes.png");
+                    butacasReservadas.pop(id);
                 } else {
-                    //if (verificarButaca(this.id)) {
-                    $('#' + varr).attr("src", "img/butacaRes.png");
-                    //butacasReservadas.push(this.id);
-                    // }
+                    if (verificarButaca(id)) {
+                        $('#' + id).attr("src", "img/butacaRes.png");
+                        butacasReservadas.push(id);
+                    }
                 }
             }
 
@@ -50,7 +49,7 @@
                     <h:panelGrid columns="1" style="width:100%"> 
                         <img id="#{but.idButaca}" src="img/butacaDes.png" style="height: 50px;" />
                         <p:commandLink onclick="prueba(#{but.idButaca});" title="View Detail">
-                            <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />                             
+                            <h:outputText styleClass="ui-paginator-page ui-state-default ui-state-active" style="margin:0 auto;" value="Ocupar"/>                             
                             <!--<f:setPropertyActionListener value="{user}" target="{usuario.selectedUsuario}" />    -->                         
                         </p:commandLink>
                     </h:panelGrid>

@@ -13,14 +13,10 @@
 
     <h:body>
         <ui:include src="menu.xhtml" />
-        <p:panelGrid  columns="2" style="text-align:center;">
-            
+        <p:panelGrid  columns="2" style="text-align:center;">            
             <f:facet name="header">                            
                 <h:outputText value="Funciones por Peliculas" style="font-style: italic; font-size: 50px"/>
             </f:facet> 
-        
-
-                
                 <b:column span="12">
                     <b:row class="col-md-6">
                                 <b:thumbnail>
@@ -31,7 +27,6 @@
                                     </f:facet>
                                 </b:thumbnail>
                       </b:row>
-
                     <b:row class="col-md-6">
                         <b:thumbnail >
                             <h:form style="height: 550px;">
@@ -48,7 +43,7 @@
                                             <b:label text="#{fun.duracion}"></b:label>                                
                                         </b:column>
                                         <b:column class="col-md-4">
-                                            <b:label text="#{fun.cine.nombre}"></b:label>                                
+                                            <b:label text="#{fun.sala.cine.nombre}"></b:label>                                
                                         </b:column>
                                         <b:column class="col-md-4">
                                             <b:label text="#{fun.sala.numSala}"></b:label>                                
@@ -60,8 +55,7 @@
                                             </p:commandLink>                             
                                         </b:column>
                                      </b:row>
-                                </c:forEach>
-                    
+                                </c:forEach>                    
                         </h:form>  
                         </b:thumbnail>
                     </b:row>

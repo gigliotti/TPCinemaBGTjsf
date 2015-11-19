@@ -116,13 +116,7 @@
         <managed-bean-name>pelicula</managed-bean-name>
         <managed-bean-class>Modelo.Pelicula</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
-
-    <managed-bean>
-	<managed-bean-name>cine</managed-bean-name>
-	<managed-bean-class>Modelo.Cine</managed-bean-class>
-	<managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
+    </managed-bean>  
     
      <managed-bean>
         <managed-bean-name>sala</managed-bean-name>

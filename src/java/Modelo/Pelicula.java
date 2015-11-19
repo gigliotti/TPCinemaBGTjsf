@@ -244,5 +244,6 @@ public class Pelicula {
 	    this.peliM = null;
 	    return "EditaPelicula";
     }
+        
 	
 }
