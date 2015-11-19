@@ -37,8 +37,7 @@ public class Usuario implements Serializable {
     private String email;
     private String telefono;
     private String urlImg;
-    private boolean logueado;
-    private List<Usuario> listaUsuarios;
+    private boolean logueado;   
     private Usuario selectedUsuario;
     private Usuario editarUsuario;
     private UploadedFile uploadedFile;
@@ -132,11 +131,7 @@ public class Usuario implements Serializable {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public List<Usuario> getListaUsuarios() {
-        return listaUsuarios;
-    }
+    }   
 
     public Usuario getSelectedUsuario() {
         return selectedUsuario;
@@ -184,8 +179,7 @@ public class Usuario implements Serializable {
     }
 
     public Usuario() throws SQLException {
-        this.logueado = false;
-        this.listaUsuarios = datosUsuarios.listado();
+        this.logueado = false;       
         nuevoUsuario = new Usuario("");        
     }
 
@@ -253,12 +247,7 @@ public class Usuario implements Serializable {
         this.logueado = false;
         return "nolog";
     }
-
-    public String listar() throws Exception {
-        listaUsuarios = new ArrayList();
-        this.listaUsuarios = datosUsuarios.listado();
-        return "listarUsuarios";
-    }
+   
 
     public String altaUsuario() throws SQLException{
         if (this.uploadedFile != null) {

@@ -38,12 +38,8 @@
         <navigation-case>
             <from-outcome>existe</from-outcome>
             <to-view-id>principal.xhtml</to-view-id>
-        </navigation-case>
-        
-        <navigation-case>
-            <from-outcome>listarUsuarios</from-outcome>
-            <to-view-id>listadoUsuario.xhtml</to-view-id>
-        </navigation-case>  
+        </navigation-case>     
+      
         
         <navigation-case>
             <from-outcome>AltaUsuario</from-outcome>
@@ -58,6 +54,21 @@
         <navigation-case>
             <from-outcome>EliminaUsuario</from-outcome>
             <to-view-id>abmUsuario.xhtml</to-view-id>
+        </navigation-case>
+        
+         <navigation-case>
+            <from-outcome>AltaSala</from-outcome>
+            <to-view-id>abmSala.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>EditaSala</from-outcome>
+            <to-view-id>abmSala.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>EliminaSala</from-outcome>
+            <to-view-id>abmSala.xhtml</to-view-id>
         </navigation-case>
         
         
@@ -78,6 +89,18 @@
     <managed-bean>
         <managed-bean-name>pelicula</managed-bean-name>
         <managed-bean-class>Modelo.Pelicula</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+     <managed-bean>
+        <managed-bean-name>sala</managed-bean-name>
+        <managed-bean-class>Modelo.Sala</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
+     <managed-bean>
+        <managed-bean-name>cine</managed-bean-name>
+        <managed-bean-class>Modelo.Cine</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     

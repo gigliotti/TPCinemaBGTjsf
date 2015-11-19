@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"     
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <br></br>
+        <b:container>
+            <h:form id="altaSala" class="col-md-6 col-md-offset-3">
+                <b:label text="Nueva Sala"></b:label>
+                <b:panel >
+                    <b:inputText placeholder="Sala" value="#{sala.numSala}" required="true">Sala:</b:inputText>
+                    <b:inputText placeholder="Columnas" value="#{sala.columna}" required="true">Columna:</b:inputText>
+                    <b:inputText placeholder="Filas" value="#{sala.fila}" required="true">Fila:</b:inputText>                   
+                    <h:outputLabel for="event" value="Cine: "/>
+                    <p:inplace id="event" label="Click para Seleccionar Cine">
+                        <h:selectOneMenu value="#{sala.setearCine(ci)}">                           
+                            <f:selectItems var="ci" itemLabel="#{cine.nombre}" itemValue="#{cine}" value="#{cine.listarCinesActivos()}"/>                                           
+                        </h:selectOneMenu>
+                    </p:inplace><br></br>
+                    <h:commandButton class="btn-primary" type="submit" action="#{sala.altaSala()}" value="Agregar Sala"></h:commandButton> 
+                </b:panel>              
+            </h:form>           
+        </b:container>
+
+        <br></br>
+        <br></br>
+
+    </h:body>
+</html>
+

@@ -9,16 +9,11 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <title></title> 
-        <script type="text/javascript">
-            $(document).ready(function () {
-
-            });
-        </script>
+        <title></title>        
     </h:head>    
-    <h:body onload="'#{usuario.listar()}'">       
+    <h:body>       
         <h:form id="form">
-            <p:dataGrid var="user" value="#{usuario.listaUsuarios}" columns="3" 
+            <p:dataGrid var="user" value="#{usuario.listarUsuarios()}" columns="3" 
                         rows="6" paginator="true" id="listaUsuarios"
                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                         rowsPerPageTemplate="6,12,16">
@@ -114,7 +109,6 @@
                 </p:outputPanel>         
             </p:dialog>
         </h:form>    
-
     </h:body>
 </html>
 
