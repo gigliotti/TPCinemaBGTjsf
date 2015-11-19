@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <title>Facelet Title</title>
+               
+        <script>
+            var butacasOcupadas = [];
+	var butacasReservadas = [];
+
+            function prueba(varr) {
+                alert(varr);
+                if ($('#' + varr).attr('src') == "img/butacaRes.png") {
+                    $('#' + varr).attr("src", "img/butacaDes.png");
+                    //butacasReservadas.pop(this.id);
+                } else {
+                    //if (verificarButaca(this.id)) {
+                    $('#' + varr).attr("src", "img/butacaRes.png");
+                    //butacasReservadas.push(this.id);
+                    // }
+                }
+            }
+
+            function verificarButaca(id) {
+                var resp = true;
+                $.each(butacasOcupadas, function (ind, elem) {
+                    if (id == elem) {
+                        resp = false
+                    }
+                });
+                return resp;
+            }
+
+        </script>
+
+    </h:head>
+    <h:body>
+        <ui:include src="menu.xhtml" />
+        <h:form id="formReserva">
+            <p:dataGrid var="but" value="#{sala.cantButacas()}" columns="4" 
+                        rows="#{sala.cantButacas().size()}" paginator="true" id="listaUsuarios">
+                <f:facet name="header">Listado de Butacas de la Sala</f:facet>
+                <p:panel header="Butaca: #{but.idButaca}" style="text-align:center">
+                    <h:panelGrid columns="1" style="width:100%"> 
+                        <img id="#{but.idButaca}" src="img/butacaDes.png" style="height: 50px;" />
+                        <p:commandLink onclick="prueba(#{but.idButaca});" title="View Detail">
+                            <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />                             
+                            <!--<f:setPropertyActionListener value="{user}" target="{usuario.selectedUsuario}" />    -->                         
+                        </p:commandLink>
+                    </h:panelGrid>
+                </p:panel>
+            </p:dataGrid>            
+        </h:form>
+        <!--<h:form id="formEliminar">
+            <p:dialog id="dlg2" header="Eliminar Usuario" showEffect="explode" hideEffect="explode" widgetVar="dlgEliminar" modal="true" resizable="false" minWidth="200">
+                <h:outputText value="¿Desea Eliminar el Usuario?"></h:outputText> 
+                <p:commandButton value="Si" action="{usuario.bajaUsuario()}" update=":form" onclick="dlg2.hide();"></p:commandButton>
+                <p:commandButton value="No" onclick="dlg2.hide();"></p:commandButton>
+            </p:dialog>
+        </h:form> -->        
+    </h:body>
+</html>
+

@@ -263,6 +263,20 @@ public class Usuario implements Serializable {
         alta();
         return "AltaUsuario";
     }
+    
+    public String registrarUsuario() throws SQLException{
+        if (this.uploadedFile != null) {
+            if (!this.uploadedFile.getFileName().equals("")) {
+                uploadFile(this);
+                this.urlImg = this.uploadedFile.getFileName();
+            } else {
+                this.urlImg = "user-default.png";
+            }
+        }
+        datosUsuarios.alta(this);
+        alta();
+        return "RegistrarUsuario";
+    }
 
     public String modificaUsuario() throws Exception {
         Usuario userBd = datosUsuarios.traePorId(this.editarUsuario.id);
