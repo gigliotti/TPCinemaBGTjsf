@@ -78,8 +78,7 @@
         <navigation-case>
             <from-outcome>EliminaSala</from-outcome>
             <to-view-id>abmSala.xhtml</to-view-id>
-        </navigation-case>
-        
+        </navigation-case>       
         
     </navigation-rule>  
     <application>

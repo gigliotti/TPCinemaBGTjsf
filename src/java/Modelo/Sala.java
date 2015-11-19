@@ -8,6 +8,8 @@ package Modelo;
 import Dao.BDSala;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.faces.context.FacesContext;
+
 
 /**
  *
@@ -22,6 +24,7 @@ public class Sala {
     private int fila;
     private boolean Estado;
     private Sala salaNueva;
+    private int idCineSala;
 
     public int getIdSala() {
         return idSala;
@@ -71,6 +74,22 @@ public class Sala {
         this.Estado = Estado;
     }
 
+    public Sala getSalaNueva() {
+        return salaNueva;
+    }
+
+    public void setSalaNueva(Sala salaNueva) {
+        this.salaNueva = salaNueva;
+    }
+
+    public int getIdCineSala() {
+        return idCineSala;
+    }
+
+    public void setIdCineSala(int idCineSala) {
+        this.idCineSala = idCineSala;
+    }
+
     public Sala(int idSala, int numSala, Cine cine, int columna, int fila, boolean Estado) {
         this.idSala = idSala;
         this.numSala = numSala;
@@ -78,10 +97,11 @@ public class Sala {
         this.columna = columna;
         this.fila = fila;
         this.Estado = Estado;
+        this.idCineSala = cine.getIdCine();
     }
 
     public Sala() {
-       
+
     }
 
     public Sala(int idSala) {
@@ -96,12 +116,17 @@ public class Sala {
     private BDSala datosSalas = BDSala.getInstance();
 
     public String altaSala() throws SQLException {
+        this.cine = (new Cine()).existe(this.idCineSala);
+        this.Estado = true;
         datosSalas.alta(this);
+        refresh();
         return "AltaSala";
     }
 
     public String modificaSala() throws SQLException {
+        this.salaNueva.cine = (new Cine()).existe(this.salaNueva.idCineSala);
         datosSalas.modificar(this.salaNueva);
+        this.salaNueva = null;
         return "EditaSala";
     }
 
@@ -127,12 +152,15 @@ public class Sala {
         return (Sala) datosSalas.existe(aux);
     }
 
-    public Sala getSalaNueva() {
-        return salaNueva;
-    }
-
-    public void setSalaNueva(Sala salaNueva) {
-        this.salaNueva = salaNueva;
+    public void refresh() {
+       FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("sala");
+//        this.idSala = 0;
+//        this.numSala = 0;
+//        this.cine = null;
+//        this.columna = 0;
+//        this.fila = 0;
+//        this.Estado = false;
+//        this.idCineSala = 0;
     }
 
 }

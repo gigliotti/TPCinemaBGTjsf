@@ -96,4 +96,9 @@ public class Cine {
 	Cine aux = new Cine(idCine);
 	return (Cine) datosCines.existe(aux);
     }
+    
+    @Override
+    public String toString(){
+        return this.nombre;
+    }
 }

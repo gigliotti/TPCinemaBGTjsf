@@ -16,9 +16,9 @@
                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                         rowsPerPageTemplate="6,12,16">
                 <f:facet name="header">Listado de Salas</f:facet>
-                <p:panel header="#{sal.numSala}" style="text-align:center">
+                <p:panel header="Cine: #{sal.cine.nombre}  Sala: #{sal.numSala}" style="text-align:center">
                     <h:panelGrid columns="1" style="width:100%"> 
-                        <h:outputText value="#{sal.numSala}" />
+                        <img src="img/cine.jpg" style="height: 50px;" />
                         <p:commandLink  update=":form:salaDetail" oncomplete="PF('salaDialog').show()" title="View Detail">
                             <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" /> 
                             <f:setPropertyActionListener value="#{sal}" target="#{sala.salaNueva}"></f:setPropertyActionListener>
@@ -30,7 +30,7 @@
                 <p:outputPanel id="salaDetail" style="text-align:center;">
                     <p:panelGrid id="panelInfo" rendered="#{not empty sala.salaNueva}" columns="2" columnClasses="value,value">
                         <f:facet name="header">                            
-                            <h:outputText value="#{sala.salaNueva.numSala}" />
+                            <img src="img/cine.jpg" style="height: 50px;" />
                         </f:facet>
                         <h:outputText value="Id:" />
                         <h:outputText value="#{sala.salaNueva.idSala}" />
@@ -71,16 +71,16 @@
                         <b:panel >                                 
                             <b:row style="text-align: center">
                                 <b:column class="col-md-6">
-                                    <p:inplace id="event" label="Click para Seleccionar Cine">
-                                        <h:selectOneMenu value="#{sala.salaNueva.cine}" hideNoSelectionOption="true" >
-                                            <c:forEach var="itemCine" items="#{cine.listarCinesActivos()}">
-                                                <f:selectItem itemLabel="#{itemCine.nombre}" itemValue="#{itemCine}" />
-                                            </c:forEach>                                              
-                                        </h:selectOneMenu>
-                                    </p:inplace><br></br>
+                                    <h:selectOneMenu id="id_cine" value="#{sala.salaNueva.idCineSala}" >                      
+                                        <f:selectItem itemLabel="Select Cine" itemValue="#{sala.salaNueva.idCineSala}" />
+                                        <f:selectItems  var="c" itemLabel="#{c.nombre}" itemValue="#{c.idCine}" noSelectionValue="true" value="#{cine.listarCinesActivos()}"/>                         
+                                    </h:selectOneMenu>
+                                    <br></br>
                                     <b:inputText placeholder="Numero Sala" value="#{sala.salaNueva.numSala}" required="true">Numero Sala:</b:inputText>  
                                     <b:inputText placeholder="Columna" value="#{sala.salaNueva.columna}" required="true">Columna:</b:inputText>
-                                    <b:inputText placeholder="Fila" value="#{sala.salaNueva.fila}" required="true">Fila:</b:inputText>                                                     
+                                    <b:inputText placeholder="Fila" value="#{sala.salaNueva.fila}" required="true">Fila:</b:inputText> 
+                                     Estado
+                                     <b:selectBooleanCheckbox value="#{sala.salaNueva.estado}" ></b:selectBooleanCheckbox><br></br>
                                 </b:column>
                                 <b:column class="col-md-12">
                                     <h:commandButton  type="submit" action="#{sala.modificaSala()}" value="Aceptar"></h:commandButton> 

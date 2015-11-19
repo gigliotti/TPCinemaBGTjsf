@@ -9,29 +9,34 @@
     <h:head>
         <title>Facelet Title</title>
     </h:head>
-    <h:body>
-        <br></br>
-        <b:container>
-            <h:form id="altaSala" class="col-md-6 col-md-offset-3">
-                <b:label text="Nueva Sala"></b:label>
-                <b:panel >
-                    <b:inputText placeholder="Sala" value="#{sala.numSala}" required="true">Sala:</b:inputText>
-                    <b:inputText placeholder="Columnas" value="#{sala.columna}" required="true">Columna:</b:inputText>
-                    <b:inputText placeholder="Filas" value="#{sala.fila}" required="true">Fila:</b:inputText>                   
-                    <h:outputLabel for="event" value="Cine: "/>
-                    <p:inplace id="event" label="Click para Seleccionar Cine">
-                        <h:selectOneMenu value="#{sala.setearCine(ci)}">                           
-                            <f:selectItems var="ci" itemLabel="#{cine.nombre}" itemValue="#{cine}" value="#{cine.listarCinesActivos()}"/>                                           
-                        </h:selectOneMenu>
-                    </p:inplace><br></br>
-                    <h:commandButton class="btn-primary" type="submit" action="#{sala.altaSala()}" value="Agregar Sala"></h:commandButton> 
-                </b:panel>              
-            </h:form>           
-        </b:container>
-
-        <br></br>
-        <br></br>
-
+    <h:body>  
+        <h:form id="altaSala" class="col-md-6 col-md-offset-3">                
+            <p:commandLink oncomplete="PF('salaDialogAlta').show()" title="Nuevo Sala">
+                <h:outputText styleClass="ui-paginator-page ui-state-default ui-state-active" style="margin:0 auto;"  value="Agregar Sala"/>                   
+            </p:commandLink>
+            <p:dialog id="dAlta" header="Alta Sala" widgetVar="salaDialogAlta" modal="true" showEffect="fade" hideEffect="fade" resizable="false">                  
+                <p:panelGrid id="panelAlta" columns="2" style="text-align:center;" rendered="#{not empty sala}" columnClasses="label,value" >
+                    <f:facet name="header">                            
+                        <h:outputText value="Rellene los campos" style="font-style: italic"/>
+                    </f:facet>                             
+                    <b:panel > 
+                        <b:row style="text-align: center">
+                            <b:column class="col-md-6">
+                                <b:inputText placeholder="Sala" value="#{sala.numSala}" required="true">Sala:</b:inputText>
+                                <b:inputText placeholder="Columnas" value="#{sala.columna}" required="true">Columna:</b:inputText>
+                                <b:inputText placeholder="Filas" value="#{sala.fila}" required="true">Fila:</b:inputText>                   
+                                <h:outputLabel for="event" value="Cine: "/>
+                                <h:selectOneMenu id="id_cine" value="#{sala.idCineSala}">                      
+                                    <f:selectItem itemLabel="Select Cine" itemValue="" noSelectionOption="true" />
+                                    <f:selectItems var="c" itemLabel="#{c.nombre}" itemValue="#{c.idCine}" noSelectionValue="true" value="#{cine.listarCinesActivos()}"/>                         
+                                </h:selectOneMenu><br></br><br></br>                  
+                                <h:commandButton class="btn-primary" type="submit" action="#{sala.altaSala()}" value="Agregar Sala"></h:commandButton>
+                            </b:column>  
+                        </b:row>
+                    </b:panel>                            
+                </p:panelGrid>                   
+            </p:dialog>   
+        </h:form>  
     </h:body>
 </html>
 
