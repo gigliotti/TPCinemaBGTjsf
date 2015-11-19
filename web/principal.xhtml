@@ -27,7 +27,12 @@
                                     <f:facet name="caption">
                                         <h3>#{peli.nombre}</h3>
                                         <c:set var="string2" value="${fn:substring(peli.descripcion, 0, 200) }... " />
-                                        <p>${string2}<b:button outcome="index.xhtml" look="primary" value=" Ver Más"/></p>                      
+                                        <p>${string2}
+                                            <p:commandLink action="elegirFuncion">
+                                                <h:outputText  style="margin:0 auto;" value="Ver mas"/>
+                                                <f:setPropertyActionListener value="#{peli}" target="#{pelicula}"></f:setPropertyActionListener>
+                                            </p:commandLink>  
+                                        </p>                      
                                     </f:facet>
                                 </b:thumbnail>
                             </b:column>

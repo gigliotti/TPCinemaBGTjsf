@@ -1,0 +1,71 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+
+    <h:body>
+        <ui:include src="menu.xhtml" />
+        <p:panelGrid  columns="2" style="text-align:center;">
+            
+            <f:facet name="header">                            
+                <h:outputText value="Funciones por Peliculas" style="font-style: italic; font-size: 50px"/>
+            </f:facet> 
+        
+
+                
+                <b:column span="12">
+                    <b:row class="col-md-6">
+                                <b:thumbnail>
+                                    <img src="img/#{pelicula.urlImagen}" style="height: 300px;" />
+                                    <f:facet name="caption">
+                                        <h3>#{pelicula.nombre}</h3>
+                                        <p>#{pelicula.descripcion}"</p>              
+                                    </f:facet>
+                                </b:thumbnail>
+                      </b:row>
+
+                    <b:row class="col-md-6">
+                        <b:thumbnail >
+                            <h:form style="height: 550px;">
+                            <h1>Funciones</h1>
+                                <c:forEach var="fun" items="#{funcion.listarFuncionesXPelicula(pelicula.idPelicula)}">
+                                     <b:row >
+                                        <b:column class="col-md-4">
+                                            <b:label text="#{fun.fechaYHora}"></b:label>
+                                        </b:column>
+                                        <b:column class="col-md-4">
+                                            <b:label text="#{fun.precio}"></b:label>                                
+                                        </b:column>
+                                        <b:column class="col-md-4">
+                                            <b:label text="#{fun.duracion}"></b:label>                                
+                                        </b:column>
+                                        <b:column class="col-md-4">
+                                            <b:label text="#{fun.cine.nombre}"></b:label>                                
+                                        </b:column>
+                                        <b:column class="col-md-4">
+                                            <b:label text="#{fun.sala.numSala}"></b:label>                                
+                                        </b:column>
+                                        <b:column class="col-md-4">
+                                            <p:commandLink action="reservar">
+                                                <h:outputText  style="margin:0 auto;" value="Reservar"/>
+                                                <f:setPropertyActionListener value="#{fun}" target="#{funcion}"></f:setPropertyActionListener>
+                                            </p:commandLink>                             
+                                        </b:column>
+                                     </b:row>
+                                </c:forEach>
+                    
+                        </h:form>  
+                        </b:thumbnail>
+                    </b:row>
+                </b:column>
+        </p:panelGrid>       
+    </h:body>
+</html>
