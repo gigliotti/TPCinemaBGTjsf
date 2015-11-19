@@ -36,15 +36,16 @@
                         <b:thumbnail >
                             <h:form style="height: 550px;">
                             <h1>Funciones</h1>
-                                <c:forEach var="fun" items="#{funcion.listarFuncionesXPelicula(pelicula.idPelicula)}">
-                                    <b:row>
-                                        <b:column class="col-md-2">FechaYHora</b:column>
-                                        <b:column class="col-md-2">Precio</b:column>
-                                        <b:column class="col-md-2">Duracion</b:column>
-                                        <b:column class="col-md-2">Cine</b:column>
-                                        <b:column class="col-md-2">Sala</b:column>
-                                    
-                                    </b:row>
+                            <b:row>
+                                <b:column class="col-md-2">FechaYHora</b:column>
+                                <b:column class="col-md-2">Precio</b:column>
+                                <b:column class="col-md-2">Duracion</b:column>
+                                <b:column class="col-md-2">Cine</b:column>
+                                <b:column class="col-md-2">Sala</b:column>
+
+                            </b:row>
+                            <c:forEach var="fun" items="#{funcion.listarFuncionesXPelicula(pelicula.idPelicula)}">
+
                                      <b:row >
                                         <b:column class="col-md-2">
                                             <b:label text="#{fun.fechaYHora}"></b:label>
