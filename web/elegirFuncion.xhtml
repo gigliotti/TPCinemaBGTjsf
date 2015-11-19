@@ -37,23 +37,31 @@
                             <h:form style="height: 550px;">
                             <h1>Funciones</h1>
                                 <c:forEach var="fun" items="#{funcion.listarFuncionesXPelicula(pelicula.idPelicula)}">
+                                    <b:row>
+                                        <b:column class="col-md-2">FechaYHora</b:column>
+                                        <b:column class="col-md-2">Precio</b:column>
+                                        <b:column class="col-md-2">Duracion</b:column>
+                                        <b:column class="col-md-2">Cine</b:column>
+                                        <b:column class="col-md-2">Sala</b:column>
+                                    
+                                    </b:row>
                                      <b:row >
-                                        <b:column class="col-md-4">
+                                        <b:column class="col-md-2">
                                             <b:label text="#{fun.fechaYHora}"></b:label>
                                         </b:column>
-                                        <b:column class="col-md-4">
+                                        <b:column class="col-md-2">
                                             <b:label text="#{fun.precio}"></b:label>                                
                                         </b:column>
-                                        <b:column class="col-md-4">
+                                        <b:column class="col-md-2">
                                             <b:label text="#{fun.duracion}"></b:label>                                
                                         </b:column>
-                                        <b:column class="col-md-4">
-                                            <b:label text="#{fun.cine.nombre}"></b:label>                                
+                                        <b:column class="col-md-2">
+                                            <b:label text="#{fun.sala.cine.nombre}"></b:label>                                
                                         </b:column>
-                                        <b:column class="col-md-4">
+                                        <b:column class="col-md-2">
                                             <b:label text="#{fun.sala.numSala}"></b:label>                                
                                         </b:column>
-                                        <b:column class="col-md-4">
+                                        <b:column class="col-md-2">
                                             <p:commandLink action="reservar">
                                                 <h:outputText  style="margin:0 auto;" value="Reservar"/>
                                                 <f:setPropertyActionListener value="#{fun}" target="#{funcion}"></f:setPropertyActionListener>
