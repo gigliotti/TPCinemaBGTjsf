@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+            <p:dataGrid var="func" value="#{funcion.listarFunciones()}" columns="3" 
+                        rows="6" paginator="true" id="listaSalas"
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="6,12,16">
+                <f:facet name="header">Listado de Funciones</f:facet>
+                <p:panel header="Cine: #{func.sala.cine.nombre}  Sala: #{func.sala.numSala}"   style="text-align:center">
+                    <h:panelGrid columns="1" style="width:100%"> 
+                        <img src="img/#{func.pelicula.urlImagen}" style="height: 50px;" />
+                        <p:commandLink  update=":form:funcionDetail" oncomplete="PF('funcionDialog').show()" title="View Detail">
+                            <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" /> 
+                            <f:setPropertyActionListener value="#{func}" target="#{funcion.salaNueva}"></f:setPropertyActionListener>
+                        </p:commandLink>
+                    </h:panelGrid>
+                </p:panel>
+            </p:dataGrid>
+            <p:dialog id="dlgInfo" header="Sala Info" widgetVar="salaDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel id="salaDetail" style="text-align:center;">
+                    <p:panelGrid id="panelInfo" rendered="#{not empty sala.salaNueva}" columns="2" columnClasses="value,value">
+                        <f:facet name="header">                            
+                            <img src="img/cine.jpg" style="height: 50px;" />
+                        </f:facet>
+                        <h:outputText value="Id:" />
+                        <h:outputText value="#{sala.salaNueva.idSala}" />
+                        <h:outputText value="Numero Sala:" />
+                        <h:outputText value="#{sala.salaNueva.numSala}" />
+                        <h:outputText value="Cine:" />
+                        <h:outputText value="#{sala.salaNueva.cine.nombre}" />
+                        <h:outputText value="Columna:" />
+                        <h:outputText value="#{sala.salaNueva.columna}" />
+                        <h:outputText value="Fila:" />
+                        <h:outputText value="#{sala.salaNueva.fila}" />
+                        <h:outputText value="Estado:" />
+                        <h:outputText value="#{sala.salaNueva.estado}" />
+                        <p:commandLink  oncomplete="PF('salaDialogEdit').show()" title="Editar">
+                            <h:outputText styleClass="ui-paginator-page ui-state-default ui-state-active" style="margin:0 auto;" value="Editar"/>                             
+                        </p:commandLink>
+                        <p:commandLink  oncomplete="PF('dlgEliminar').show()" title="Borrar">
+                            <h:outputText styleClass="ui-paginator-page ui-state-default ui-state-active" style="margin:0 auto;" value="Borrar"/>                            
+                        </p:commandLink>
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>           
+        </h:form>
+        <h:form id="formEliminar">
+            <p:dialog id="dlg2" header="Eliminar Sala" showEffect="explode" hideEffect="explode" widgetVar="dlgEliminar" modal="true" resizable="false" minWidth="200">
+                <h:outputText value="¿Desea Eliminar la Sala?"></h:outputText> 
+                <p:commandButton value="Si" action="#{sala.bajaSala()}" update=":form" onclick="dlg2.hide();"></p:commandButton>
+                <p:commandButton value="No" onclick="dlg2.hide();"></p:commandButton>
+            </p:dialog>
+        </h:form>
+        <h:form id="formEditar">
+            <p:dialog id="dlgedit" header="Editar Sala" widgetVar="salaDialogEdit" modal="true" showEffect="fade" hideEffect="fade" resizable="false">                 
+                <p:outputPanel autoUpdate="true" id="editarDetail" style="text-align:center;">
+                    <p:panelGrid id="panelEdit" columns="2" rendered="#{not empty sala.salaNueva}" columnClasses="value,value" style="text-align:center;">
+                        <f:facet name="header">                            
+                            <h:outputText value="Edite los campos" style="font-style: italic"/>
+                        </f:facet>                             
+                        <b:panel >                                 
+                            <b:row style="text-align: center">
+                                <b:column class="col-md-6">
+                                    <h:selectOneMenu id="id_cine" value="#{sala.salaNueva.idCineSala}" >                      
+                                        <f:selectItem itemLabel="Select Cine" itemValue="#{sala.salaNueva.idCineSala}" />
+                                        <f:selectItems  var="c" itemLabel="#{c.nombre}" itemValue="#{c.idCine}" noSelectionValue="true" value="#{cine.listarCinesActivos()}"/>                         
+                                    </h:selectOneMenu>
+                                    <br></br>
+                                    <b:inputText placeholder="Numero Sala" value="#{sala.salaNueva.numSala}" required="true">Numero Sala:</b:inputText>  
+                                    <b:inputText placeholder="Columna" value="#{sala.salaNueva.columna}" required="true">Columna:</b:inputText>
+                                    <b:inputText placeholder="Fila" value="#{sala.salaNueva.fila}" required="true">Fila:</b:inputText> 
+                                     Estado
+                                     <b:selectBooleanCheckbox value="#{sala.salaNueva.estado}" ></b:selectBooleanCheckbox><br></br>
+                                </b:column>
+                                <b:column class="col-md-12">
+                                    <h:commandButton  type="submit" action="#{sala.modificaSala()}" value="Aceptar"></h:commandButton> 
+                                </b:column>  
+                            </b:row>
+                        </b:panel>                            
+                    </p:panelGrid> 
+                </p:outputPanel>         
+            </p:dialog>
+        </h:form>
+    </h:body>
+</html>
+
+
+
