@@ -108,6 +108,12 @@
             <from-outcome>EditaFuncion</from-outcome>
             <to-view-id>abmFuncion.xhtml</to-view-id>
         </navigation-case>
+	
+	<navigation-case>
+            <from-outcome>ReservasUsuario</from-outcome>
+            <to-view-id>reservasUsuario.xhtml</to-view-id>
+        </navigation-case>
+	
         
     </navigation-rule>  
     <application>
