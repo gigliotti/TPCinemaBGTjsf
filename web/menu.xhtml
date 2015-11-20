@@ -37,11 +37,21 @@
                         <p:menuitem value="Quit" url="#" />
                     </p:submenu>
                 </c:if>
+                <c:if test="#{usuario.logueado == true}">
+                    <p:menuitem value="Mis Reservas" url="reservasUsuario.xhtml" />
+                </c:if>
                 <p:menuitem value="Busqueda Avanzada" url="busquedaAvanzada.xhtml" />
                 <f:facet name="options">
 
                     <c:if test="#{usuario.logueado == true}">
                         <p:outputLabel for="userlog" value="#{usuario.nombre}"/>
+                        <c:choose>                           
+                            <c:when test="#{usuario.urlImg=='NULL'}">
+                                <img src="img/movie-default.png" style="height: 50px;" />
+                            </c:when>
+                            <c:otherwise><img src="img/imgUsuarios/#{usuario.urlImg}" style="height: 50px;"/> 
+                            </c:otherwise>
+                        </c:choose>
                         <h:commandButton type="submit" value="Logout" id="userlog" action="#{usuario.desLoguear}"/>
                     </c:if>
                     <c:if test="#{usuario.logueado == false}">

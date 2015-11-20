@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -158,10 +159,17 @@ public class Funcion {
 	datosFunciones.alta(this);
 	refresh();
 	return "AltaFuncion";
-    }
-   
+    }   
     
     public void refresh() {
        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("funcion");
+    }
+    
+     public List<Funcion> getFilteredFuns() {
+        return filteredFuns;
+    }
+
+    public void setFilteredFuns(List<Funcion> filteredFuns) {
+        this.filteredFuns = filteredFuns;
     }
 }
