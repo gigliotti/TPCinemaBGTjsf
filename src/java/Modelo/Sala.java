@@ -52,7 +52,7 @@ public class Sala implements Serializable{
     }
 
     public int getColumna() {
-        return 4;
+        return columna;
     }
 
     public void setColumna(int columna) {
@@ -60,7 +60,7 @@ public class Sala implements Serializable{
     }
 
     public int getFila() {
-        return 3;
+        return fila;
     }
 
     public void setFila(int fila) {
@@ -169,7 +169,7 @@ public class Sala implements Serializable{
         //aux = (Sala) datosSalas.existe(aux);
         ArrayList butacas = new ArrayList();
         Butaca aux;
-        for(int i = 1; i <= 3 * 4; i++){
+        for(int i = 1; i <= this.fila * this.columna; i++){
             aux= new Butaca(i);
             butacas.add(aux);
         }        
@@ -189,6 +189,10 @@ public class Sala implements Serializable{
 
         public void setIdButaca(int idButaca) {
             this.idButaca = idButaca;
+        }
+        
+        public String toString(){
+            return String.valueOf(this.idButaca);
         }
         
     }

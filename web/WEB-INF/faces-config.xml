@@ -97,7 +97,7 @@
         <navigation-case>
             <from-outcome>EliminaCine</from-outcome>
             <to-view-id>abmCine.xhtml</to-view-id>
-        </navigation-case>         
+        </navigation-case>  
         
     </navigation-rule>  
     <application>

@@ -20,6 +20,8 @@ public class Reserva {
     private int butaca;
     private boolean confirmacion;
     private Funcion funcion;
+    private String idsReservas;
+    
 
     public int getIdReserva() {
 	return idReserva;
@@ -104,6 +106,34 @@ public class Reserva {
 
     public ArrayList listarXUsuario(int idUsuario) throws SQLException {
 	return datosReservas.listadoXUsuario(idUsuario);
+    }
+    
+    @Override
+    public String toString(){
+        return String.valueOf(this.butaca);
+    }
+    
+    public void realizarReserva() throws SQLException{
+        String[] ids = this.idsReservas.split("-");
+        int i = 0;
+        ArrayList<Reserva> reservas = new ArrayList<>();
+        Reserva aux;
+        for(i = 0;i < ids.length ; i++ ){
+            if(ids[i] != ""){
+                aux = new Reserva(this.user,Integer.parseInt(ids[i]),true,this.funcion);
+                reservas.add(aux);
+            }
+        }
+        altaReserva(reservas);
+        //rertornar un string para ir a la pagina de reservas del usuario.
+    }
+
+    public String getIdsReservas() {
+        return idsReservas;
+    }
+
+    public void setIdsReservas(String idsReservas) {
+        this.idsReservas = idsReservas;
     }
 
 }
