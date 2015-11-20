@@ -31,13 +31,8 @@
                             <h:outputText value="#{fun.idFuncion}" />
                         </p:column>
 
-                        <p:column filterBy="#{fun.fechaYHora}" headerText="FechaYHora" footerText="lte" filterMatchMode="lte">
-                            <f:facet name="filter">
-                                <p:spinner onchange="PF('funsTable').filter()" styleClass="year-spinner">
-                                    <f:converter converterId="javax.faces.Integer" />
-                                </p:spinner>
-                            </f:facet>
-                            <h:outputText value="#{fun.fechaYHora}" />
+                        <p:column filterBy="#{fun.fecha}" headerText="FechaYHora" footerText="contains" filterMatchMode="contains">                            
+                            <h:outputText value="#{fun.fecha}" />
                         </p:column>
 
                         <p:column filterBy="#{fun.duracion}" headerText="Duracion" footerText="contains" filterMatchMode="contains">

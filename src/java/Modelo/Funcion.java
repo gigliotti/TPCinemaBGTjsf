@@ -84,6 +84,10 @@ public class Funcion {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+    
+    public String getFecha(){
+        return this.fechaYHora.toString();
+    }
 
     public Funcion(int idFuncion, Date fechaYHora, int duracion, float precio, Sala sala, Pelicula pelicula, boolean estado) {
         this.idFuncion = idFuncion;
