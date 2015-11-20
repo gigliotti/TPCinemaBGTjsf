@@ -10,23 +10,26 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-	<br></br>
-	<b:container>
-	    <h:form id="altaPelicula" class="col-md-6 col-md-offset-3" enctype="multipart/form-data">
-		<b:label text="Nueva Pelicula"></b:label>
-		<b:panel >
-		    <b:inputText placeholder="Ingrese Nombre" value="#{pelicula.nombre}" required="true">Nombre</b:inputText>
+        <h:form id="altaPelicula" class="col-md-6 col-md-offset-3" enctype="multipart/form-data">
+            <p:commandLink oncomplete="PF('peliculaDialogAlta').show()" title="Nueva Pelicula">
+                <h:outputText styleClass="ui-paginator-page ui-state-default ui-state-active" style="margin:0 auto;"  value="Agregar Pelicula"/>                   
+            </p:commandLink>
+            <p:dialog id="dAlta" header="Alta Pelicula" widgetVar="peliculaDialogAlta" modal="true" showEffect="fade" hideEffect="fade" resizable="false">                  
+                <p:panelGrid id="panelAlta" columns="2" style="text-align:center;" rendered="#{not empty pelicula}" columnClasses="label,value" >
+                    <f:facet name="header">                            
+                        <h:outputText value="Rellene los campos" style="font-style: italic"/>
+                    </f:facet>                             
+                    <b:panel >                                 
+                        <b:inputText placeholder="Ingrese Nombre" value="#{pelicula.nombre}" required="true">Nombre</b:inputText>
 		    <b:inputText placeholder="Ingrese Director" value="#{pelicula.director}" required="true">Director</b:inputText>
 		    <b:inputText placeholder="Ingrese Duracion" value="#{pelicula.duracion}" required="true">Duracion</b:inputText>
 		    <b:inputText placeholder="Ingrese Descripcion" value="#{pelicula.descripcion}" required="true">Descripcion</b:inputText>
 		    <p:fileUpload value="#{pelicula.uploadedFile}" mode="simple" dragDropSupport="false" sizeLimit="100000" fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
 		    <h:commandButton class="btn-primary" type="submit" action="#{pelicula.altaPelicula()}" value="Agregar Pelicula"></h:commandButton> 
-		</b:panel>
-	    </h:form>
-	</b:container>
-	<br></br>
-	<br></br>
-
+                    </b:panel>                            
+                </p:panelGrid>                   
+            </p:dialog>
+        </h:form>  
     </h:body>
 </html>
 

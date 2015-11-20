@@ -23,6 +23,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import org.primefaces.model.UploadedFile;
+
 /**
  *
  * @author Jorge
@@ -39,12 +40,12 @@ public class Usuario implements Serializable {
     private String email;
     private String telefono;
     private String urlImg;
-    private boolean logueado;   
+    private boolean logueado;
     private Usuario selectedUsuario;
     private Usuario editarUsuario;
     UploadedFile uploadedFile;
     private Usuario nuevoUsuario;
-    
+
     private BDUsuarios datosUsuarios = BDUsuarios.getInstance();
 
     public boolean isLogueado() {
@@ -133,7 +134,7 @@ public class Usuario implements Serializable {
 
     public void setId(int id) {
         this.id = id;
-    }   
+    }
 
     public Usuario getSelectedUsuario() {
         return selectedUsuario;
@@ -181,8 +182,8 @@ public class Usuario implements Serializable {
     }
 
     public Usuario() throws SQLException {
-        this.logueado = false;       
-        nuevoUsuario = new Usuario("");        
+        this.logueado = false;
+        nuevoUsuario = new Usuario("");
     }
 
     public Usuario(String edit) {
@@ -200,8 +201,6 @@ public class Usuario implements Serializable {
         this.email = "";
         this.telefono = "";
     }
-
-    
 
     public void registraUsuario(Usuario user) throws SQLException {
         datosUsuarios.alta(user);
@@ -247,11 +246,11 @@ public class Usuario implements Serializable {
 
     public String desLoguear() {
         this.logueado = false;
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("usuario");
         return "nolog";
     }
-   
 
-    public String altaUsuario() throws SQLException{
+    public String altaUsuario() throws SQLException {
         if (this.uploadedFile != null) {
             if (!this.uploadedFile.getFileName().equals("")) {
                 uploadFile(this);
@@ -264,8 +263,8 @@ public class Usuario implements Serializable {
         alta();
         return "AltaUsuario";
     }
-    
-    public String registrarUsuario() throws SQLException{
+
+    public String registrarUsuario() throws SQLException {
         if (this.uploadedFile != null) {
             if (!this.uploadedFile.getFileName().equals("")) {
                 uploadFile(this);
@@ -319,7 +318,7 @@ public class Usuario implements Serializable {
         return "EliminaUsuario";
     }
 
-    public void alta() throws SQLException {        
+    public void alta() throws SQLException {
         this.user = "";
         this.pass = "";
         this.id = 0;
@@ -338,7 +337,7 @@ public class Usuario implements Serializable {
     public void eliminar() {
         this.editarUsuario = this.selectedUsuario;
     }
-    
+
     public void captcha() {
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct", "Correct");
         FacesContext.getCurrentInstance().addMessage(null, msg);
