@@ -15,72 +15,69 @@ import javax.faces.context.FacesContext;
  *
  * @author hernan
  */
-public class Cine implements Serializable{
+public class Cine implements Serializable {
 
     private int idCine;
     private String nombre;
     private String direccion;
     private boolean estado;
-    private ArrayList listadoCines;    
+    private ArrayList listadoCines;
     private Cine cineNuevo;
-    private ArrayList salasPorCine = new ArrayList();
+    private ArrayList salasPorCine;
     private int idCineSeleccionado;
 
     public ArrayList getSalasPorCine() {
-	return salasPorCine;
+        return salasPorCine;
     }
 
     public void setSalasPorCine(ArrayList salasPorCine) {
-	this.salasPorCine = salasPorCine;
+        this.salasPorCine = salasPorCine;
     }
-    
 
     public int getIdCine() {
-	return idCine;
+        return idCine;
     }
 
     public void setIdCine(int idCine) {
-	this.idCine = idCine;
+        this.idCine = idCine;
     }
 
     public String getNombre() {
-	return nombre;
+        return nombre;
     }
 
     public void setNombre(String nombre) {
-	this.nombre = nombre;
+        this.nombre = nombre;
     }
 
     public String getDireccion() {
-	return direccion;
+        return direccion;
     }
 
     public void setDireccion(String direccion) {
-	this.direccion = direccion;
+        this.direccion = direccion;
     }
 
     public boolean isEstado() {
-	return estado;
+        return estado;
     }
 
     public void setEstado(boolean estado) {
-	this.estado = estado;
+        this.estado = estado;
     }
 
-    
-    
     public Cine(int idCine, String nombre, String direccion, boolean estado) {
-	this.idCine = idCine;
-	this.nombre = nombre;
-	this.direccion = direccion;
-	this.estado = estado;
+        this.idCine = idCine;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.estado = estado;
     }
 
     public Cine(int idCine) {
-	this.idCine = idCine;
-	this.nombre = "";
-	this.direccion = "";
-	this.estado = false;
+        this.idCine = idCine;
+        this.nombre = "";
+        this.direccion = "";
+        this.estado = false;
     }
 
     public Cine() {
@@ -107,16 +104,16 @@ public class Cine implements Serializable{
     }
 
     public ArrayList listarCines() throws SQLException {
-	return datosCine.listado();
+        return datosCine.listado();
     }
 
     public ArrayList listarCinesActivos() throws SQLException {
-	return datosCine.listadoActivos();
+        return datosCine.listadoActivos();
     }
 
     public Cine existe(int idCine) throws SQLException {
-	Cine aux = new Cine(idCine);
-	return (Cine) datosCine.existe(aux);
+        Cine aux = new Cine(idCine);
+        return (Cine) datosCine.existe(aux);
     }
 
     public ArrayList getListadoCines() {
@@ -125,11 +122,11 @@ public class Cine implements Serializable{
 
     public void setListadoCines(ArrayList listadoCines) {
         this.listadoCines = listadoCines;
-        
+
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return this.nombre;
     }
 
@@ -140,27 +137,22 @@ public class Cine implements Serializable{
     public void setCineNuevo(Cine cineNuevo) {
         this.cineNuevo = cineNuevo;
     }
-    
-    
+
     public void refresh() {
-       FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("cine");
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("cine");
     }
-    
-    
-        public void onCineChange() throws SQLException {
-	    Sala sala = new Sala();
-	    salasPorCine =  sala.listarSalasXCine(this.idCine);
+
+    public void onCineChange() throws SQLException {
+        Sala sala = new Sala();      
+        this.salasPorCine = sala.listarSalasXCine(this.idCineSeleccionado);
     }
 
     public int getIdCineSeleccionado() {
-	return idCineSeleccionado;
+        return idCineSeleccionado;
     }
 
     public void setIdCineSeleccionado(int idCineSeleccionado) {
-	this.idCineSeleccionado = idCineSeleccionado;
+        this.idCineSeleccionado = idCineSeleccionado;
     }
 
-
-    
-    
 }

@@ -22,8 +22,8 @@
                         <p:commandLink  update=":form:funcionDetail" oncomplete="PF('funcionDialog').show()" title="View Detail">
                             <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" /> 
                             <f:setPropertyActionListener value="#{func}" target="#{funcion.funcionNueva}"></f:setPropertyActionListener>
-			    <f:setPropertyActionListener value="#{func.sala}" target="#{sala}"></f:setPropertyActionListener>
-			    <f:setPropertyActionListener value="#{func.sala.cine}" target="#{cine}"></f:setPropertyActionListener>
+                            <f:setPropertyActionListener value="#{func.sala}" target="#{sala}"></f:setPropertyActionListener>
+                            <f:setPropertyActionListener value="#{func.sala.cine}" target="#{cine}"></f:setPropertyActionListener>
                         </p:commandLink>
                     </h:panelGrid>
                 </p:panel>
@@ -54,7 +54,7 @@
             </p:dialog>           
         </h:form>
         <h:form id="formEditar">
-            <p:dialog id="dlgedit" header="Editar Funcion" widgetVar="funcionDialogEdit" modal="true" showEffect="fade" hideEffect="fade" resizable="false">                 
+            <p:dialog id="dlgedit" header="Editar Funcion" widgetVar="funcionDialogEdit" modal="true" resizable="false">                 
                 <p:outputPanel autoUpdate="true" id="editarDetail" style="text-align:center;">
                     <p:panelGrid id="panelEdit" columns="2" rendered="#{not empty funcion.funcionNueva}" columnClasses="value,value" style="text-align:center;">
                         <f:facet name="header">                            
@@ -64,20 +64,30 @@
                             <b:row style="text-align: center">
                                 <b:column class="col-md-6">
                                     <p:outputLabel for="cine" value="Cine: " />
-		    <p:selectOneMenu id="cine" value="#{cine.idCineSeleccionado}" style="width:150px">
-			<p:ajax listener="#{cine.onCineChange()}" update="salas" />
-			<f:selectItem itemLabel="Seleccione Cine" itemValue="" noSelectionOption="true" />
-			<f:selectItems value="#{cine.listarCinesActivos()}" />
-		    </p:selectOneMenu><br></br>
-		    <p:outputLabel for="salas" value="Sala: " />
-		    <p:selectOneMenu id="salas" value="#{sala.idSala}" style="width:150px">
-			<f:selectItem itemLabel="Seleccione Sala" itemValue="" noSelectionOption="true" />
-			<f:selectItems value="#{cine.salasPorCine}" />
-		    </p:selectOneMenu>
+                                    <p:selectOneMenu id="cine" value="#{cine.idCineSeleccionado}" style="width:150px">
+                                        <p:ajax listener="#{cine.onCineChange()}" update="salas" />
+                                        <f:selectItem itemLabel="Seleccionar Cine" itemValue="" noSelectionOption="false" />
+                                        <f:selectItems var="c" itemLabel="#{c.nombre}" itemValue="#{c.idCine}" value="#{cine.listarCinesActivos()}" noSelectionValue="true" />
+                                    </p:selectOneMenu><br></br>
+                                    <p:outputLabel for="salas" value="Sala: " />
+                                    <p:selectOneMenu id="salas" value="#{sala.idSala}" style="width:150px">
+                                        <f:selectItem itemLabel="Seleccione Sala" itemValue="" noSelectionOption="false" />
+                                        <f:selectItems var="s" itemLabel="#{s.numSala}" itemValue="#{s.idSala}"  value="#{cine.salasPorCine}" noSelectionValue="true"  />
+                                    </p:selectOneMenu>
                                     <br></br>
-                                    <b:inputText placeholder="Fecha" value="#{funcion.funcionNueva.fechaYHora}" required="true">Fecha:</b:inputText>  
+		<p:outputLabel for="peliculas" value="Peliculas: " />
+		<p:selectOneMenu id="peliculas" value="#{funcion.funcionNueva.pelicula.idPelicula}" >                      
+		    <f:selectItem itemLabel="Select Cine" itemValue="" />
+                                        <f:selectItems  var="p" itemLabel="#{p.nombre}" itemValue="#{p.idPelicula}" noSelectionValue="true" value="#{funcion.funcionNueva.pelicula.listarPeliculas()}"/>                         
+		</p:selectOneMenu><br></br>
+		</b:column>
+		 <b:column class="col-md-6">
+		<p:outputLabel for="fecha" value="Fecha:" />
+		<p:calendar id="fecha" value="#{funcion.funcionNueva.fechaYHora}" effect="fold" /><br></br>
                                     <b:inputText placeholder="Duracion" value="#{funcion.funcionNueva.duracion}" required="true">Duracion:</b:inputText>
-                                   <!-- <b:inputText placeholder="Fila" value="#{sala.salaNueva.fila}" required="true">Fila:</b:inputText> -->
+                                   <b:inputText placeholder="Precio" value="#{funcion.funcionNueva.precio}" required="true">Precio:</b:inputText>
+		Estado
+		<b:selectBooleanCheckbox value="#{funcion.funcionNueva.estado}" ></b:selectBooleanCheckbox><br></br>
                                 </b:column>
                                 <b:column class="col-md-12">
                                     <h:commandButton  type="submit" action="#{funcion.modificaFuncion()}" value="Aceptar"></h:commandButton> 
