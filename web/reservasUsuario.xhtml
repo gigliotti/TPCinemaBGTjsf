@@ -9,27 +9,35 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-	<ui:include src="menu.xhtml" /> 
-	<p:carousel value="#{usuario.traerPorUsuario()}" headerText="Reservas" var="reser" itemStyle="text-align:center" >
-	    <p:panelGrid columns="2" style="width:100%;margin:10px 0px" columnClasses="label,value" styleClass="ui-panelgrid-blank">
-		<f:facet name="header">
-		    <img src="img/#{reser.funcion.pelicula.urlImagen}" style="height: 50px;"/> 
-		</f:facet>
+	<ui:include src="menu.xhtml" />
+	<p:dataGrid var="reser" value="#{usuario.traerPorUsuario()}" columns="3"
+		    rows="6" paginator="true" id="reservas"
+		    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		    rowsPerPageTemplate="6,12,16">
 
-		<h:outputText value="Fecha de la funcion:" />
-		<h:outputText value="#{reser.funcion.fechaYHora}" />
+	    <f:facet name="header">
+		Reservas de #{usuario.nombre}
+	    </f:facet>
 
-		<h:outputText value="Cantidad de Butacas" />
-		<h:outputText value="#{reser.butaca}" />
+	    <p:panel header="#{reser.funcion.pelicula.nombre}" style="text-align:center">
+		<img src="img/#{reser.funcion.pelicula.urlImagen}" style="height: 50px;"/> 
+		<h:panelGrid columns="2" style="width:100%" columnClasses="label,value">
+		    
+		    <p:outputLabel for="fecha" value="Fecha:" />
+		    <h:outputText value="#{reser.funcion.fechaYHora}" id="fecha"/>
 
-		<h:outputText value="Cine" />
-		<h:outputText value="#{reser.funcion.sala.cine.nombre}"/>
+		    <h:outputLabel for="butaca" value="Cantidad de Butacas" />
+		    <h:outputText value="#{reser.butaca}" id="butaca"/>
 
-		<h:outputText value="Sala" />
-		<h:outputText value="#{reser.funcion.sala.numSala}" />
-	    </p:panelGrid>
+		    <h:outputLabel for="cine" value="Cine" />
+		    <h:outputText value="#{reser.funcion.sala.cine.nombre}" id="cine"/>
 
-	</p:carousel>
+		    <h:outputLabel for="sala" value="Sala" />
+		    <h:outputText value="#{reser.funcion.sala.numSala}" id="sala"/>
+		</h:panelGrid>
+	    </p:panel>
+
+	</p:dataGrid>
     </h:body>
 </html>
 

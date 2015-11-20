@@ -116,14 +116,16 @@ public class BDReservas implements IBD {
 	try {
 	    PreparedStatement sentencia = (PreparedStatement) oCon.getConexion().prepareStatement(consulta);
 	    rs = sentencia.executeQuery();
-	    sentencia.close();
+
 	    while (rs.next()) {
 		funcion = funcion.existe(rs.getInt("idFuncion"));
-		Reserva res = new Reserva(rs.getInt("idReserva"), null, rs.getInt("Butacas"), rs.getBoolean("Confirmacion"), funcion);
-		listaReservas.add(res);
+		if (funcion.getSala() != null) {
+		    Reserva res = new Reserva(rs.getInt("idReserva"), null, rs.getInt("Butacas"), rs.getBoolean("Confirmacion"), funcion);
+		    listaReservas.add(res);
+		}
 	    }
 	    rs.close();
-
+	    sentencia.close();
 	} catch (SQLException e) {
 	    e.printStackTrace();
 	} finally {

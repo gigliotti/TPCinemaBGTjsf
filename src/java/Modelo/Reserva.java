@@ -113,7 +113,7 @@ public class Reserva {
         return String.valueOf(this.butaca);
     }
     
-    public void realizarReserva() throws SQLException{
+    public String realizarReserva() throws SQLException{
         String[] ids = this.idsReservas.split("-");
         int i = 0;
         ArrayList<Reserva> reservas = new ArrayList<>();
@@ -125,6 +125,7 @@ public class Reserva {
             }
         }
         altaReserva(reservas);
+        return "ReservasUsuario";
         //rertornar un string para ir a la pagina de reservas del usuario.
     }
 
