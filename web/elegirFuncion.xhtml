@@ -59,10 +59,11 @@
                                     </b:column>
                                     <b:column class="col-md-2">  
                                         <p:commandLink  action="faces/reservar.xhtml">
-                                            <h:outputText  style="margin:0 auto;" value="Reservar"/>
+                                            <h:outputText styleClass="ui-paginator-page ui-state-default ui-state-active" style="margin:0 auto;" value="Reservar"/>
                                             <f:setPropertyActionListener value="#{fun}" target="#{reserva.funcion}"></f:setPropertyActionListener>
                                             <f:setPropertyActionListener value="#{usuario}" target="#{reserva.user}"></f:setPropertyActionListener>
                                             <f:setPropertyActionListener value="#{fun.sala}" target="#{sala}"></f:setPropertyActionListener>
+                                             <f:setPropertyActionListener value="#{fun.pelicula}" target="#{pelicula}"></f:setPropertyActionListener>
                                         </p:commandLink>
                                     </b:column>
                                 </b:row>

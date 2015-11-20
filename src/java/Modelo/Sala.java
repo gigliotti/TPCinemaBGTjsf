@@ -176,6 +176,11 @@ public class Sala implements Serializable{
         return butacas;
     }
     
+     @Override
+        public String toString(){
+            return String.valueOf(this.numSala);
+        }
+    
     public class Butaca{
         private int idButaca;
         
@@ -191,6 +196,7 @@ public class Sala implements Serializable{
             this.idButaca = idButaca;
         }
         
+        @Override
         public String toString(){
             return String.valueOf(this.idButaca);
         }

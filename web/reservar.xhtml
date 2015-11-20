@@ -75,16 +75,16 @@
 
         <p:panelGrid  columns="1" style="text-align:center; width: 100%">
             <f:facet name="header">                            
-                <h:outputText value="Listado de Peliculas" style="font-style: italic; font-size: 50px"/>
+                <h:outputText value="#{sala.cine.nombre} Sala: #{sala.numSala}" style="font-style: italic; font-size: 50px"/>
             </f:facet> 
             <b:panel >
                 <h:form id="formReserva">                  
-                    <p:commandButton value="Reservar Butacas" action="#{reserva.realizarReserva()}" onclick="setButacas();">              
+                    <p:commandButton value="Reservar Butacas" action="#{reserva.realizarReserva()}" onclick="setButacas();" styleClass="ui-paginator-page ui-state-default ui-state-active" style="margin:0 auto;" >              
                     </p:commandButton>     
                     <h:inputText class="idStyle" id="idsButa" value="#{reserva.idsReservas}"  style="visibility:hidden"></h:inputText>
                     <p:dataGrid var="but" value="#{sala.cantButacas()}" columns="#{sala.columna}" 
                                 rows="#{sala.cantButacas().size()}" paginator="true" id="listaUsuarios">
-                        <f:facet name="header">Listado de Butacas de la Sala</f:facet>
+                        <f:facet name="header">#{pelicula.nombre}</f:facet>
                         <p:panel header="Butaca: #{but.idButaca}" style="text-align:center">
                             <h:panelGrid columns="1" style="width:100%">                         
                                 <p:commandLink id="oc" onclick="selectButaca(#{but.idButaca});" title="View Detail">

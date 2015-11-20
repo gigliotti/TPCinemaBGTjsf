@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:include src="menu.xhtml" />
+        <p:panelGrid  columns="1" style="text-align:center; width: 100%">
+            <f:facet name="header">                            
+                <h:outputText value="Busqueda Avanzada" style="font-style: italic; font-size: 50px"/>
+            </f:facet> 
+            <b:panel >
+                <h:form>
+                    <p:dataTable var="fun" value="#{funcion.listarFunciones()}" widgetVar="funsTable"
+                                 emptyMessage="No funciones found with given criteria" filteredValue="#{funcion.filteredFuns}">
+
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Search all fields:" />
+                                <p:inputText id="globalFilter" onkeyup="PF('funsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:column filterBy="#{fun.idFuncion}" headerText="Id" footerText="contains" filterMatchMode="contains">
+                            <h:outputText value="#{fun.idFuncion}" />
+                        </p:column>
+
+                        <p:column filterBy="#{fun.fechaYHora}" headerText="FechaYHora" footerText="lte" filterMatchMode="lte">
+                            <f:facet name="filter">
+                                <p:spinner onchange="PF('funsTable').filter()" styleClass="year-spinner">
+                                    <f:converter converterId="javax.faces.Integer" />
+                                </p:spinner>
+                            </f:facet>
+                            <h:outputText value="#{fun.fechaYHora}" />
+                        </p:column>
+
+                        <p:column filterBy="#{fun.duracion}" headerText="Duracion" footerText="contains" filterMatchMode="contains">
+                            <h:outputText value="#{fun.duracion}" />
+                        </p:column>
+
+                        <p:column filterBy="#{fun.sala.numSala}" headerText="Sala" footerText="exact" filterMatchMode="exact">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('funsTable').filter()" >
+                                    <f:selectItem itemLabel="Select One" itemValue="#{null}" noSelectionOption="true" />
+                                    <f:selectItems value="#{sala.listarSalas()}" />
+                                </p:selectOneMenu>
+                            </f:facet>
+                            <h:outputText value="#{fun.sala.numSala}" />
+                        </p:column>
+
+                        <p:column filterBy="#{fun.sala.cine.nombre}" headerText="Cine" footerText="exact" filterMatchMode="exact">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('funsTable').filter()" >
+                                    <f:selectItem itemLabel="Select One" itemValue="#{null}" noSelectionOption="true" />
+                                    <f:selectItems value="#{cine.listarCinesActivos()}" />
+                                </p:selectOneMenu>
+                            </f:facet>
+                            <h:outputText value="#{fun.sala.cine.nombre}" />
+                        </p:column>
+
+                        <p:column filterBy="#{fun.pelicula.nombre}" headerText="Pelicula" footerText="in" filterMatchMode="in">
+                            <f:facet name="filter">
+                                <p:selectCheckboxMenu label="Pelicula" onchange="PF('funsTable').filter()" panelStyle="width:125px" scrollHeight="150">
+                                    <f:selectItems value="#{pelicula.listarPeliculas()}" />
+                                </p:selectCheckboxMenu>
+                            </f:facet>
+                            <h:outputText value="#{fun.pelicula.nombre}" />
+                        </p:column>                      
+
+                        <p:column filterBy="#{fun.precio}" headerText="Precio" footerText="custom (min)" filterMatchMode="contains">
+                            <h:outputText value="#{fun.precio}">
+                                <f:convertNumber currencySymbol="$" type="currency"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column>  
+                            <p:commandLink  action="faces/reservar.xhtml">
+                                <h:outputText styleClass="ui-paginator-page ui-state-default ui-state-active" style="margin:0 auto;"  value="Reservar"/>
+                                <f:setPropertyActionListener value="#{fun}" target="#{reserva.funcion}"></f:setPropertyActionListener>
+                                <f:setPropertyActionListener value="#{usuario}" target="#{reserva.user}"></f:setPropertyActionListener>
+                                <f:setPropertyActionListener value="#{fun.sala}" target="#{sala}"></f:setPropertyActionListener>
+                                <f:setPropertyActionListener value="#{fun.pelicula}" target="#{pelicula}"></f:setPropertyActionListener>
+                            </p:commandLink>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </b:panel> 
+        </p:panelGrid>
+    </h:body>
+</html>
+

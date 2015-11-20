@@ -245,5 +245,10 @@ public class Pelicula {
         this.peliM = null;
         return "EditaPelicula";
     }
+    
+    @Override
+    public String toString(){
+        return this.nombre;
+    }
 
 }

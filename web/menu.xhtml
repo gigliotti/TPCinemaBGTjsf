@@ -22,9 +22,9 @@
             <p:growl id="messages"/>
 
             <p:menubar >
-		<f:facet name="Nombre">		
-		    <p:outputLabel value="CinemaBGT" style="color: darkred; font-size: large"/>
-		</f:facet>
+                <f:facet name="Nombre">		
+                    <p:outputLabel value="CinemaBGT" style="color: darkred; font-size: large"/>
+                </f:facet>
                 <p:menuitem value="ir a principal" url="/faces/principal.xhtml"/> 
                 <c:if test="#{usuario.logueado == true and usuario.administrador == true}">
                     <p:submenu label="Herramientas de administrador" >
@@ -37,8 +37,9 @@
                         <p:menuitem value="Quit" url="#" />
                     </p:submenu>
                 </c:if>
-
+                <p:menuitem value="Busqueda Avanzada" url="busquedaAvanzada.xhtml" />
                 <f:facet name="options">
+
                     <c:if test="#{usuario.logueado == true}">
                         <p:outputLabel for="userlog" value="#{usuario.nombre}"/>
                         <h:commandButton type="submit" value="Logout" id="userlog" action="#{usuario.desLoguear}"/>
