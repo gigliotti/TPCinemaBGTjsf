@@ -5,6 +5,7 @@
  */
 package Modelo;
 
+import Dao.BDReservas;
 import Dao.BDUsuarios;
 import java.io.IOException;
 import java.io.InputStream;
@@ -341,5 +342,11 @@ public class Usuario implements Serializable {
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct", "Correct");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-
+    
+    BDReservas datosReservas = BDReservas.getInstance();
+    
+        public ArrayList traerPorUsuario() throws SQLException{
+	return datosReservas.listadoXUsuario(this.id);
+    }
+  
 }

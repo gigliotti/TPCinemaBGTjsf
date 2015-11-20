@@ -66,18 +66,28 @@
                                     <p:outputLabel for="cine" value="Cine: " />
                                     <p:selectOneMenu id="cine" value="#{cine.idCineSeleccionado}" style="width:150px">
                                         <p:ajax listener="#{cine.onCineChange()}" update="salas" />
-                                        <f:selectItem itemLabel="Seleccionar Cine" itemValue="" noSelectionOption="false" />
+                                        <f:selectItem itemLabel="Seleccionar Cine" itemValue="" />
                                         <f:selectItems var="c" itemLabel="#{c.nombre}" itemValue="#{c.idCine}" value="#{cine.listarCinesActivos()}" noSelectionValue="true" />
                                     </p:selectOneMenu><br></br>
                                     <p:outputLabel for="salas" value="Sala: " />
                                     <p:selectOneMenu id="salas" value="#{sala.idSala}" style="width:150px">
-                                        <f:selectItem itemLabel="Seleccione Sala" itemValue="" noSelectionOption="false" />
+                                        <f:selectItem itemLabel="Seleccione Sala" itemValue=""  />
                                         <f:selectItems var="s" itemLabel="#{s.numSala}" itemValue="#{s.idSala}"  value="#{cine.salasPorCine}" noSelectionValue="true"  />
                                     </p:selectOneMenu>
                                     <br></br>
-                                    <b:inputText placeholder="Fecha" value="#{funcion.funcionNueva.fechaYHora}" required="true">Fecha:</b:inputText>  
+		<p:outputLabel for="peliculas" value="Peliculas: " />
+		<p:selectOneMenu id="peliculas" value="#{funcion.funcionNueva.pelicula.idPelicula}" >                      
+		    <f:selectItem itemLabel="Seleccione Pelicula" itemValue="" />
+                                        <f:selectItems  var="p" itemLabel="#{p.nombre}" itemValue="#{p.idPelicula}" noSelectionValue="true" value="#{funcion.funcionNueva.pelicula.listarPeliculas()}"/>                         
+		</p:selectOneMenu><br></br>
+		</b:column>
+		 <b:column class="col-md-6">
+		<p:outputLabel for="fecha" value="Fecha:" />
+		<p:calendar id="fecha" value="#{funcion.funcionNueva.fechaYHora}" effect="fold" /><br></br>
                                     <b:inputText placeholder="Duracion" value="#{funcion.funcionNueva.duracion}" required="true">Duracion:</b:inputText>
-                                   <!-- <b:inputText placeholder="Fila" value="#{sala.salaNueva.fila}" required="true">Fila:</b:inputText> -->
+                                   <b:inputText placeholder="Precio" value="#{funcion.funcionNueva.precio}" required="true">Precio:</b:inputText>
+		Estado
+		<b:selectBooleanCheckbox value="#{funcion.funcionNueva.estado}" ></b:selectBooleanCheckbox><br></br>
                                 </b:column>
                                 <b:column class="col-md-12">
                                     <h:commandButton  type="submit" action="#{funcion.modificaFuncion()}" value="Aceptar"></h:commandButton> 

@@ -97,7 +97,17 @@
         <navigation-case>
             <from-outcome>EliminaCine</from-outcome>
             <to-view-id>abmCine.xhtml</to-view-id>
-        </navigation-case>  
+        </navigation-case>
+	
+	<navigation-case>
+            <from-outcome>AltaFuncion</from-outcome>
+            <to-view-id>abmFuncion.xhtml</to-view-id>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>EditaFuncion</from-outcome>
+            <to-view-id>abmFuncion.xhtml</to-view-id>
+        </navigation-case>
         
     </navigation-rule>  
     <application>

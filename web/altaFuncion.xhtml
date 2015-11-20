@@ -1,12 +1,47 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-	Hello from Facelets
+	<br></br>
+	<b:container>
+	    <h:form id="altaPelicula" class="col-md-6 col-md-offset-3">
+		<b:label text="Nueva Pelicula"></b:label>
+		<b:panel >
+		    <p:outputLabel for="cine" value="Cine: " />
+		    <p:selectOneMenu id="cine" value="#{funcion.sala.cine.idCineSeleccionado}" style="width:150px">
+			<p:ajax listener="#{funcion.sala.cine.onCineChange()}" update="salas" />
+			<f:selectItem itemLabel="Seleccionar Cine" itemValue="" noSelectionOption="false" />
+			<f:selectItems var="c" itemLabel="#{c.nombre}" itemValue="#{c.idCine}" value="#{funcion.sala.cine.listarCinesActivos()}" noSelectionValue="true" />
+		    </p:selectOneMenu><br></br>
+		    <p:outputLabel for="salas" value="Sala: " />
+		    <p:selectOneMenu id="salas" value="#{funcion.sala.idSala}" style="width:150px">
+			<f:selectItem itemLabel="Seleccione Sala" itemValue="" noSelectionOption="false" />
+			<f:selectItems var="s" itemLabel="#{s.numSala}" itemValue="#{s.idSala}"  value="#{funcion.sala.cine.salasPorCine}" noSelectionValue="true"  />
+		    </p:selectOneMenu>
+		    <br></br>
+		    <p:outputLabel for="peliculas" value="Peliculas: " />
+		    <p:selectOneMenu id="peliculas" value="#{funcion.pelicula.idPelicula}" >                      
+			<f:selectItem itemLabel="Seleccione Pelicula" itemValue="" />
+			<f:selectItems  var="p" itemLabel="#{p.nombre}" itemValue="#{p.idPelicula}" noSelectionValue="true" value="#{funcion.pelicula.listarPeliculas()}"/>                         
+		    </p:selectOneMenu><br></br>
+		    <p:outputLabel for="fecha" value="Fecha:" />
+		    <p:calendar id="fecha" value="#{funcion.fechaYHora}" effect="fold" /><br></br>
+		    <b:inputText placeholder="Duracion" value="#{funcion.duracion}" required="true">Duracion:</b:inputText>
+		    <b:inputText placeholder="Precio" value="#{funcion.precio}" required="true">Precio:</b:inputText>
+		    <h:commandButton class="btn-primary" type="submit" action="#{funcion.altaFuncion()}" value="Agregar Funcion"></h:commandButton> 
+		</b:panel>
+	    </h:form>
+	</b:container>
+	<br></br>
+	<br></br>
+
     </h:body>
 </html>
-

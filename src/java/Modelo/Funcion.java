@@ -148,30 +148,20 @@ public class Funcion {
     public void setFuncionNueva(Funcion funcionNueva) {
         this.funcionNueva = funcionNueva;
     }
-
-    public String modificaFuncion() {
-        return "";
+    
+    public String modificaFuncion() throws SQLException{
+	datosFunciones.modificar(this.funcionNueva);
+	return "EditaFuncion";
     }
-
-    public List<Funcion> getFilteredFuns() {
-        return filteredFuns;
+    
+    public String altaFuncion() throws SQLException{
+	datosFunciones.alta(this);
+	refresh();
+	return "AltaFuncion";
     }
-
-    public void setFilteredFuns(List<Funcion> filteredFuns) {
-        this.filteredFuns = filteredFuns;
+   
+    
+    public void refresh() {
+       FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("funcion");
     }
-
-    public boolean filterByPrice(Object value, Object filter, Locale locale) {
-        String filterText = (filter == null) ? null : filter.toString().trim();
-        if (filterText == null || filterText.equals("")) {
-            return true;
-        }
-
-        if (value == null) {
-            return false;
-        }
-
-        return ((Comparable) value).compareTo(Integer.valueOf(filterText)) > 0;
-    }
-
 }
