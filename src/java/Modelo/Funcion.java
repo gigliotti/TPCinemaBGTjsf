@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -25,6 +26,10 @@ public class Funcion {
     private Pelicula pelicula = new Pelicula();
     private boolean estado;
     private Funcion funcionNueva;
+    
+    {
+	sala.setCine(new Cine());
+    }
 
     public Date getFechaYHora() {
 	return fechaYHora;
@@ -142,11 +147,19 @@ public class Funcion {
 	this.funcionNueva = funcionNueva;
     }
     
-    public String modificaFuncion(){
-	return "";
+    public String modificaFuncion() throws SQLException{
+	datosFunciones.modificar(this.funcionNueva);
+	return "EditaFuncion";
     }
     
+    public String altaFuncion() throws SQLException{
+	datosFunciones.alta(this);
+	refresh();
+	return "AltaFuncion";
+    }
+   
     
-    
-
+    public void refresh() {
+       FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("funcion");
+    }
 }

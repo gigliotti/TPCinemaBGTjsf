@@ -66,18 +66,18 @@
                                     <p:outputLabel for="cine" value="Cine: " />
                                     <p:selectOneMenu id="cine" value="#{cine.idCineSeleccionado}" style="width:150px">
                                         <p:ajax listener="#{cine.onCineChange()}" update="salas" />
-                                        <f:selectItem itemLabel="Seleccionar Cine" itemValue="" noSelectionOption="false" />
+                                        <f:selectItem itemLabel="Seleccionar Cine" itemValue="" />
                                         <f:selectItems var="c" itemLabel="#{c.nombre}" itemValue="#{c.idCine}" value="#{cine.listarCinesActivos()}" noSelectionValue="true" />
                                     </p:selectOneMenu><br></br>
                                     <p:outputLabel for="salas" value="Sala: " />
                                     <p:selectOneMenu id="salas" value="#{sala.idSala}" style="width:150px">
-                                        <f:selectItem itemLabel="Seleccione Sala" itemValue="" noSelectionOption="false" />
+                                        <f:selectItem itemLabel="Seleccione Sala" itemValue=""  />
                                         <f:selectItems var="s" itemLabel="#{s.numSala}" itemValue="#{s.idSala}"  value="#{cine.salasPorCine}" noSelectionValue="true"  />
                                     </p:selectOneMenu>
                                     <br></br>
 		<p:outputLabel for="peliculas" value="Peliculas: " />
 		<p:selectOneMenu id="peliculas" value="#{funcion.funcionNueva.pelicula.idPelicula}" >                      
-		    <f:selectItem itemLabel="Select Cine" itemValue="" />
+		    <f:selectItem itemLabel="Seleccione Pelicula" itemValue="" />
                                         <f:selectItems  var="p" itemLabel="#{p.nombre}" itemValue="#{p.idPelicula}" noSelectionValue="true" value="#{funcion.funcionNueva.pelicula.listarPeliculas()}"/>                         
 		</p:selectOneMenu><br></br>
 		</b:column>
